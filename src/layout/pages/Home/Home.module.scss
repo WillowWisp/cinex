@@ -24,3 +24,22 @@
     }
   }
 }
+
+.trailer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  
+  .mai-lam-tiep {
+    display: inline-block;
+    height: 100%;
+    width: 800px;
+    border: solid 2px;
+    text-transform: uppercase;
+    font-size: 40px;
+    color: white;
+    line-height: 400px;
+    text-align: center;
+  }
+}

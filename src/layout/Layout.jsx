@@ -18,7 +18,7 @@ function Layout() {
   return (
     <div>
       <MyNavbar></MyNavbar>
-      <div style={{paddingBottom: 1000}}>
+      <div style={{paddingBottom: 0}}>
         <Switch>
           { renderRouter() }
         </Switch>
