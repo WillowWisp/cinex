@@ -1,0 +1,26 @@
+.home {
+  
+}
+
+.movie-list-content-container {
+  margin-top: 30px;
+  .movie-list-content-item {
+    height: 380px;
+    // background: red;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    .movie-list-content-item-img {
+      height: 300px;
+      width: 200px;
+    }
+
+    .movie-list-content-item-title {
+      text-transform: uppercase;
+      font-size: 30px;
+      color: #fff;
+    }
+  }
+}

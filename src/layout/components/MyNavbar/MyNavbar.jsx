@@ -9,7 +9,7 @@ function MyNavbar() {
     <div className={classes['navbar']}>
       <Container className={classes['navbar-inner-container']}>
         <div className={classes['navbar-brand']}>
-          <img src="https://image.flaticon.com/icons/png/512/83/83519.png" alt="Cinex" className={classes['navbar-brand-img']} />
+          <img src="https://www.freeiconspng.com/uploads/white-strategy-icon-33.png" alt="Cinex" className={classes['navbar-brand-img']} />
           <span>Cinex</span>
         </div>
         <div className={classes['navbar-right']}>

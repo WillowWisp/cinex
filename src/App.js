@@ -1,6 +1,7 @@
 import React from 'react';
 
-import './App.css';
+// import './App.css';
+import './styles/global.scss';
 
 import { StoreProvider } from 'easy-peasy';
 import { store } from './store';
