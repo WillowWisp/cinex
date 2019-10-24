@@ -3,6 +3,7 @@ import { Container } from 'react-bootstrap';
 import Section from './components/Section/Section';
 import Showcase from './components/Showcase/Showcase';
 import UnreleasedSection from './components/UnreleasedSection/UnreleasedSection';
+import YouTube from 'react-youtube';
 
 import classes from './Home.module.scss';
 
@@ -10,6 +11,19 @@ import unreleaseMovies from './unreleased-mock';
 
 function Home() {
   // const [toggler, setToggler] = useState(false);
+  const opts = {
+    height: '390',
+    width: '640',
+    playerVars: { // https://developers.google.com/youtube/player_parameters
+      autoplay: 0
+    }
+  };
+
+  const _onReady = (event) => {
+    // access to player in all event handlers via event.target
+    event.target.pauseVideo();
+  }
+
   return (
     <div className={classes['home']}>
       <Showcase />
@@ -53,9 +67,14 @@ function Home() {
 
       <Section title="Trailer">
         <div className={classes['trailer-container']}>
-          <div className={classes['mai-lam-tiep']}>
+          {/* <div className={classes['mai-lam-tiep']}>
             Đây là cái trailer nè
-          </div>
+          </div> */}
+          <YouTube
+            videoId="dQw4w9WgXcQ"
+            opts={opts}
+            onReady={_onReady}
+          />
         </div>
       </Section>
 
