@@ -1,0 +1,86 @@
+.container {
+  // z-index: 100;
+  display: flex;
+  flex-direction: column;
+  margin: -200px 260px 0;
+
+  .line {
+    z-index: 100;
+    background-color: white;
+    width: 100%;
+    // height: 1px;
+  }
+
+  .title-and-screentypes {
+    display: flex;
+    z-index: 100;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    
+    .title {
+      color: white;
+      font-size: 32px;
+
+    }
+
+    .screentypes {
+      display: flex;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      font-family: 'Righteous', cursive;
+      .type {
+        border: 2px solid white;
+        margin: 0 5px;
+        padding: 5px 10px;
+        border-radius: 20%;
+      }
+    }
+  }
+
+  .poster-and-movie-infos {
+    margin: 30px 0 0;
+    z-index: 100;
+    display: flex;
+    width: 100%;
+    height: 500px;
+    
+    .poster-and-buttons {
+      flex: 1;
+      // background-color: blue;
+
+      .poster {
+        width: 100%;
+        border-radius: 10px;
+        // height: 370px;
+        // width: 250px;
+      }
+    }
+
+    .movie-infos {
+      flex: 3;
+      // background-color: blueviolet;
+      .section-name-text {
+
+      }
+
+      .normal-text {
+
+      }
+
+      .rating-length-genres {
+
+      }
+
+      .details-and-cast {
+
+      }
+
+      .storyline {
+
+      }
+    }
+
+  }
+}
