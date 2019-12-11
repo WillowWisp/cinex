@@ -9,7 +9,7 @@ const NowPlayingMovies = (props) => {
       <hr className={classes['line']}/>
       <div className={classes['section-name-text']}>
         <span><img className={classes['icon'] + " " + classes['invert']} src={'https://png.pngtree.com/svg/20141212/c596a7549c.png'} alt="cinema-icon"/></span>
-        Phim đang chiếu
+        In Theater
       </div>
       <hr className={classes['line']}/>
       <div className={classes['now-playing-movies-container']}>
