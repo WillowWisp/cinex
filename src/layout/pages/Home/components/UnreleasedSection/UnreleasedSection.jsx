@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Container } from 'react-bootstrap';
 
 import classes from './UnreleasedSection.module.scss';
@@ -28,6 +28,7 @@ const UnreleasedSection = (props) => {
                   <img 
                     className={classes['unreleased-movie-item-poster']}
                     src={posterUrl}
+                    alt={title}
                   />
                   <div className={classes['unreleased-movie-item-title']}>
                     {title}

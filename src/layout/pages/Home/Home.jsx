@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { Container } from 'react-bootstrap';
+import React from 'react';
 import Section from './components/Section/Section';
 import Showcase from './components/Showcase/Showcase';
 import UnreleasedSection from './components/UnreleasedSection/UnreleasedSection';
