@@ -23,8 +23,8 @@ const MovieDetail = (props) => {
       <div className={classes['poster-and-movie-infos']}>
         <div className={classes['poster-and-buttons']}>
           <img className={classes["poster"]} src={movie.poster} alt="movie-poster"/>
-          <Button className={classes['small-button']} variant="dark" size="sm" block>Add To List</Button>
-          <Button className={classes['small-button']} variant="dark" size="sm" block>Favorite</Button>
+          {/* <Button className={classes['small-button']} variant="dark" size="sm" block>Add To List</Button>
+          <Button className={classes['small-button']} variant="dark" size="sm" block>Favorite</Button> */}
           <Button className={classes['buy-ticket-button']} variant="primary" size= "lg" block>Buy Ticket</Button>
         </div>
         <div className={classes['movie-infos']}>
@@ -62,6 +62,7 @@ const MovieDetail = (props) => {
               )) }
               <div
                 className={classes['sub-text'] + " " + classes['see-more']}
+                onClick={() => { window.open("https://www.imdb.com/", "_blank") }}
               ><IoMdAddCircleOutline size={24} className={classes['icon']}/>See more</div>
             </div>
           </div>

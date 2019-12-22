@@ -26,5 +26,9 @@ export const helper = {
     const minStr = ('0' + date.getMinutes()).slice(-2);
     res = hourStr + ':' + minStr + ' ' + (isAM ? 'AM' : 'PM');
     return res
+  },
+  paginate (array, pageSize, pageNumber) {
+    --pageNumber;
+    return array.slice(pageNumber * pageSize, (pageNumber + 1) * pageSize);
   }
 }
