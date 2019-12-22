@@ -40,8 +40,8 @@ const MoviesSchedule = () => {
     var showtimeByScreenType = Array.from(mockScreenType, (screenType => ({ screenType: screenType, showtimes: [] })));
     for (var showtime of mockShowtimes) {
       const showDate = new Date(showtime.startAt);
-      if (showtime.movieId === movieId && showDate.getDate() === date) {
-        const screenTypeIndex = showtimeByScreenType.findIndex(st => st.screenType.name === showtime.screenType);
+      if (showtime.movie.id === movieId && showDate.getDate() === date) {
+        const screenTypeIndex = showtimeByScreenType.findIndex(st => st.screenType.name === showtime.screenType.name);
         showtimeByScreenType[screenTypeIndex].showtimes.push(showtime);
       }
     }
