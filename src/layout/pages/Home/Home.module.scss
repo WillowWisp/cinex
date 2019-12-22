@@ -11,10 +11,13 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-
+    text-align: center;
+    margin-bottom: 40px;
+    
     .movie-list-content-item-img {
       height: 300px;
       width: 200px;
+      cursor: pointer;
     }
 
     .movie-list-content-item-title {

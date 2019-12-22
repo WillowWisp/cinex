@@ -4,10 +4,11 @@ import FsLightbox from 'fslightbox-react';
 
 import classes from './MovieShowcase.module.scss';
 
-const MovieShowcase = () => {
+const MovieShowcase = (props) => {
   const [toggler, setToggler] = useState(false);
+  const { movie } = props;
   return (
-    <div className={classes['showcase']}>
+    <div className={classes['showcase']} style={{ background: `url(${movie.wallpapers[0]})`}}>
       <div className={classes['opacity-layer']} />
       <Container className={classes['showcase-inner-container']}>
           <div className={classes['play-button-container']} onClick={ () => setToggler(!toggler)}>
@@ -16,7 +17,7 @@ const MovieShowcase = () => {
           <FsLightbox
             toggler={ toggler }
             sources={ [
-            'https://www.youtube.com/watch?v=IwfUnkBfdZ4',
+              movie.trailer,
             ] }
           />
       </Container>

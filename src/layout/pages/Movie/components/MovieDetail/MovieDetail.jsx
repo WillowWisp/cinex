@@ -3,6 +3,8 @@ import classes from './MovieDetail.module.scss';
 import { Button } from 'react-bootstrap';
 import { IoMdAddCircleOutline } from "react-icons/io";
 
+import { helper } from '../../../../../utils/helper';
+
 const MovieDetail = (props) => {
   const { movie } = props;
   return (
@@ -32,30 +34,31 @@ const MovieDetail = (props) => {
           <div className={classes['screentypes']}>
           { movie.screenTypes.map( type => (
             <div className={classes["type"]}>
-              {type}
+              {type.name}
             </div>
           ) ) }
         </div>
           <hr className={classes["line"]}/>
           <div className={classes['rating-length-genres']}>
-            {movie.rated + " | " + movie.length + " | " + movie.genres}
+            {movie.rated.name + " | " + movie.runtime + " min | " + helper.getFormattedGenresString(movie.genres)}
           </div>
           <hr className={classes["line"]}/>
           <div className={classes['details-and-cast']}>
             <div className={classes['details']}>
               <div className={classes['section-name-text']}>Details</div>
-              <div className={classes['normal-text']}>Director: <span className={classes['sub-text']}>{movie.director}</span></div>
-              <div className={classes['normal-text']}>Writers: <span className={classes['sub-text']}>{movie.writers}</span></div>
+              <div className={classes['normal-text']}>Director: <span className={classes['sub-text']}>{movie.directors[0]}</span></div>
+              {/* <div className={classes['normal-text']}>Writers: <span className={classes['sub-text']}>{movie.writers}</span></div> */}
               <div className={classes['normal-text']}>Country: <span className={classes['sub-text']}>{movie.country}</span></div>
-              <div className={classes['normal-text']}>Language: <span className={classes['sub-text']}>{movie.language}</span></div>
-              <div className={classes['normal-text']}>Release Date: <span className={classes['sub-text']}>{movie.releaseDate}</span></div>
+              {/* <div className={classes['normal-text']}>Language: <span className={classes['sub-text']}>{movie.language}</span></div> */}
+              <div className={classes['normal-text']}>Language: <span className={classes['sub-text']}>English</span></div>
+              <div className={classes['normal-text']}>Release Date: <span className={classes['sub-text']}>{movie.released}</span></div>
             </div>
             <div className={classes['cast']}>
               <div className={classes['section-name-text']}>Cast</div>
-              { movie.cast.map(actor => (
+              { movie.actors.map(actor => (
                 <div className={classes['normal-text'] + " " + classes['actor-name']}>
                   {/* <span><img className={classes['actor-img']} src={actor.imgUrl} alt="actor-img"/></span> */}
-                  <span><div style={{ backgroundImage: "url(" + actor.imgUrl + ")" }} className={classes['actor-img']}></div></span>
+                  <span><div style={{ backgroundImage: "url(" + actor.avatar + ")" }} className={classes['actor-img']}></div></span>
                   {/* <span className={classes['actor-img']}></span> */}
                   {actor.name}  
                 </div>

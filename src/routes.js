@@ -8,7 +8,7 @@ import Schedule from './layout/pages/Schedule/Schedule';
 
 export const routes = [
   {
-    path: '/movie/id1234',
+    path: '/movie/:id',
     component: <MovieDetail />
   },
   {

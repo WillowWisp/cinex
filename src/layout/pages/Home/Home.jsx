@@ -3,13 +3,19 @@ import Section from './components/Section/Section';
 import Showcase from './components/Showcase/Showcase';
 import UnreleasedSection from './components/UnreleasedSection/UnreleasedSection';
 import YouTube from 'react-youtube';
+import { useHistory  } from 'react-router-dom';
 
 import classes from './Home.module.scss';
 
 import unreleaseMovies from './unreleased-mock';
 
-function Home() {
+import { mockMovies } from '../../../mock-data';
+import { helper } from '../../../utils/helper';
+
+function Home(props) {
   // const [toggler, setToggler] = useState(false);
+  const movies = mockMovies;
+  let history = useHistory();
   const opts = {
     height: '390',
     width: '640',
@@ -23,13 +29,41 @@ function Home() {
     event.target.pauseVideo();
   }
 
+  const onMovieClick = (movie) => {
+    // props.router.push({
+    //   pathname: `/movie/${movie.id}`,
+    //   state: {
+    //     movie: movie
+    //   }
+    // })
+    history.push(
+      `/movie/${movie.id}`,
+      { 
+        movie: movie
+      }
+    )
+  }
+
   return (
     <div className={classes['home']}>
       <Showcase />
 
       <Section title="Now on">
         <div className={'row ' + classes['movie-list-content-container']}>
-          <div className={'col-3 ' + classes['movie-list-content-item']}>
+          {movies.map(movie => (
+            <div
+              className={'col-3 ' + classes['movie-list-content-item']}
+            >
+              <img
+                className={classes['movie-list-content-item-img']}
+                src={movie.poster}
+                alt="movie poster"
+                onClick={onMovieClick.bind(this, movie)}
+              />
+              <div className={classes['movie-list-content-item-title']}>{movie.title}</div>
+            </div>
+          ))}
+          {/* <div className={'col-3 ' + classes['movie-list-content-item']}>
             <img className={classes['movie-list-content-item-img']} src="https://images-na.ssl-images-amazon.com/images/I/51IUMTimF1L.jpg" alt="movie poster" />
             <div className={classes['movie-list-content-item-title']}>Justice League</div>
           </div>
@@ -60,7 +94,7 @@ function Home() {
           <div className={'col-3 ' + classes['movie-list-content-item']}>
             <img className={classes['movie-list-content-item-img']} src="https://d2e111jq13me73.cloudfront.net/sites/default/files/styles/product_image_aspect_switcher_228w/public/product-images/csm-movie/avengers-endgame-movie-poster-image0.jpg" alt="movie poster" />
             <div className={classes['movie-list-content-item-title']}>Avengers: Endgame</div>
-          </div>
+          </div> */}
         </div>
       </Section>
 
@@ -70,7 +104,7 @@ function Home() {
             Đây là cái trailer nè
           </div> */}
           <YouTube
-            videoId="dQw4w9WgXcQ"
+            videoId={helper.getYouTubeID(movies[0].trailer)}
             opts={opts}
             onReady={_onReady}
           />

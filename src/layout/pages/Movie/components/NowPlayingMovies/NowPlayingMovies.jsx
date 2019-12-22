@@ -1,10 +1,6 @@
 import React, {useState} from 'react';
 import classes from './NowPlayingMovies.module.scss';
 import { helper } from '../../../../../utils/helper';
-import {
-  CSSTransition,
-  TransitionGroup,
-} from 'react-transition-group';
 
 const NowPlayingMovies = (props) => {
   const [ currentPage, setCurrentPage ] = useState(1);
@@ -16,6 +12,8 @@ const NowPlayingMovies = (props) => {
 
   const onChangePageClick = (page) => {
     setCurrentPage(page);
+
+    //TODO: Use react-transition-group instead
     for (var i = 0; i < PAGE_SIZE; i++) {
       const element = document.getElementById(`movie${i}`);
       if (!element) {
