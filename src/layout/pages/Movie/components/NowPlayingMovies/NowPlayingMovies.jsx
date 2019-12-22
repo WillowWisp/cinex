@@ -1,14 +1,28 @@
 import React, {useState} from 'react';
+import { useHistory } from 'react-router-dom';
+
 import classes from './NowPlayingMovies.module.scss';
+
 import { helper } from '../../../../../utils/helper';
 
 const NowPlayingMovies = (props) => {
   const [ currentPage, setCurrentPage ] = useState(1);
+  
+  var history = useHistory();
   const { movieList } = props;
   const PAGE_SIZE = 5;
   const MOVIES_COUNT = movieList.length;
   const PAGES_TO_DISPLAY = Math.ceil(MOVIES_COUNT / PAGE_SIZE);
   const pageNumberArr = [...Array(PAGES_TO_DISPLAY + 1).keys()].slice(1);
+
+  const onMovieClick = (movie) => {
+    history.push(
+      `/movie/${movie.id}`,
+      {
+        movie: movie
+      }
+    );
+  }
 
   const onChangePageClick = (page) => {
     setCurrentPage(page);
@@ -38,7 +52,12 @@ const NowPlayingMovies = (props) => {
       <div id="movie-container" className={classes['now-playing-movies-container']}>
         { helper.paginate(movieList, PAGE_SIZE, currentPage).map((movie, index) => (
           <div id={`movie${index}`} className={classes['movie-container'] + ' ' + classes['fade-in']}>
-            <img className={classes['movie-poster']} src={movie.posterUrl} alt="movie-poster"/>
+            <img
+              className={classes['movie-poster']}
+              src={movie.poster}
+              alt="movie-poster"
+              onClick={onMovieClick.bind(this, movie)}
+            />
             <div className={classes['movie-title-text']}>{movie.title}</div>
           </div>
         )) }

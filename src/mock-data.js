@@ -440,6 +440,209 @@ const movieManOfSteel = {
   storyline: `Clark Kent is an alien who as a child was evacuated from his dying world and came to Earth, living as a normal human. But when survivors of his alien home invade Earth, he must reveal himself to the world.`,
 }
 
+const movieAvengersIW = {
+  id: "avengersiw",
+  title: "Avengers: Infinity War",
+  genres: [
+    mockGenres[3],
+    mockGenres[4],
+    mockGenres[5],
+  ],
+  screenTypes: [
+    mockScreenType[0],
+    mockScreenType[1],
+    mockScreenType[2],
+  ],
+  directors: [
+    "Anthony Russo",
+    "Joe Russo"
+  ],
+  actors: [
+    {
+      "name": "Robert Downey Jr.",
+      "avatar": "https://m.media-amazon.com/images/M/MV5BNzg1MTUyNDYxOF5BMl5BanBnXkFtZTgwNTQ4MTE2MjE@._V1_SY1000_CR0,0,664,1000_AL_.jpg"
+    },
+    {
+      "name": "Tom Holland",
+      "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJD9EvYUTXc5oRQy0FdIgan14l1kcnscVwQ5ln_XmzFUM-rqn9&s"
+    },
+    {
+      "name": "Samuel L. Jackson",
+      "avatar": "https://pbs.twimg.com/profile_images/742877069793742848/c0Ec2mTU_400x400.jpg"
+    }
+  ],
+  country: "USA",
+  released: "2019-10-04",
+  endAt: "2020-02-12",
+  runtime: 143,
+  poster: "https://m.media-amazon.com/images/M/MV5BMjMxNjY2MDU1OV5BMl5BanBnXkFtZTgwNzY1MTUwNTM@._V1_SY1000_CR0,0,674,1000_AL_.jpg",
+  wallpapers: [
+    'https://wallpaperaccess.com/full/5920.jpg',
+  ],
+  trailer: 'https://www.youtube.com/watch?v=TcMBFSGVi1c',
+  rated: mockRateds[0],
+  storyline: `The Avengers and their allies must be willing to sacrifice all in an attempt to defeat the powerful Thanos before his blitz of devastation and ruin puts an end to the universe.`,
+}
+
+const movieSMH = {
+  id: "spoodermanh",
+  title: "Spider-Man: Homecoming",
+  genres: [
+    mockGenres[3],
+    mockGenres[4],
+    mockGenres[5],
+  ],
+  screenTypes: [
+    mockScreenType[0],
+    mockScreenType[1],
+    mockScreenType[2],
+  ],
+  directors: [
+    "Jon Watts",
+  ],
+  actors: [
+    {
+      "name": "Robert Downey Jr.",
+      "avatar": "https://m.media-amazon.com/images/M/MV5BNzg1MTUyNDYxOF5BMl5BanBnXkFtZTgwNTQ4MTE2MjE@._V1_SY1000_CR0,0,664,1000_AL_.jpg"
+    },
+    {
+      "name": "Tom Holland",
+      "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJD9EvYUTXc5oRQy0FdIgan14l1kcnscVwQ5ln_XmzFUM-rqn9&s"
+    },
+  ],
+  country: "USA",
+  released: "2019-10-04",
+  endAt: "2020-02-12",
+  runtime: 133,
+  poster: "https://m.media-amazon.com/images/M/MV5BNTk4ODQ1MzgzNl5BMl5BanBnXkFtZTgwMTMyMzM4MTI@._V1_SY1000_CR0,0,658,1000_AL_.jpg",
+  wallpapers: [
+    'https://wallpaperaccess.com/full/5920.jpg',
+  ],
+  trailer: 'https://www.youtube.com/watch?v=TcMBFSGVi1c',
+  rated: mockRateds[0],
+  storyline: `Peter Parker balances his life as an ordinary high school student in Queens with his superhero alter-ego Spider-Man, and finds himself on the trail of a new menace prowling the skies of New York City.`,
+
+}
+const movieCGLLR = {
+  id: "codegeassllres",
+  title: "Code Geass: Lelouch of the Re;Surrection",
+  genres: [
+    mockGenres[3],
+    mockGenres[4],
+    mockGenres[6],
+  ],
+  screenTypes: [
+    mockScreenType[0],
+  ],
+  directors: [
+    "Gorou Taniguchi",
+  ],
+  actors: [
+    {
+      "name": "Robert Downey Jr.",
+      "avatar": "https://m.media-amazon.com/images/M/MV5BNzg1MTUyNDYxOF5BMl5BanBnXkFtZTgwNTQ4MTE2MjE@._V1_SY1000_CR0,0,664,1000_AL_.jpg"
+    },
+    {
+      "name": "Tom Holland",
+      "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJD9EvYUTXc5oRQy0FdIgan14l1kcnscVwQ5ln_XmzFUM-rqn9&s"
+    },
+  ],
+  country: "Japan",
+  released: "2019-10-04",
+  endAt: "2020-02-12",
+  runtime: 112,
+  poster: "https://m.media-amazon.com/images/M/MV5BZmUxZmVlNGMtZGMyMy00MmM3LTg5ZjgtNzFhZWU4MTU5MjIwXkEyXkFqcGdeQXVyMzgxODM4NjM@._V1_SY1000_CR0,0,666,1000_AL_.jpg",
+  wallpapers: [
+    'https://images.alphacoders.com/130/130353.jpg',
+  ],
+  trailer: 'https://www.youtube.com/watch?v=fEiX_69tu2I',
+  rated: mockRateds[0],
+  storyline: `The story takes place several years after Lelouch's "Zero Requiem" plan.`,
+}
+const movieSMITSV = {
+  id: "spooderanimation",
+  title: "Spider-Man: Into the Spider-Verse",
+  genres: [
+    mockGenres[3],
+    mockGenres[4],
+    mockGenres[6],
+  ],
+  screenTypes: [
+    mockScreenType[0],
+  ],
+  directors: [
+    "Bob Persichetti",
+    "Peter Ramsey"
+  ],
+  actors: [
+    {
+      "name": "Robert Downey Jr.",
+      "avatar": "https://m.media-amazon.com/images/M/MV5BNzg1MTUyNDYxOF5BMl5BanBnXkFtZTgwNTQ4MTE2MjE@._V1_SY1000_CR0,0,664,1000_AL_.jpg"
+    },
+    {
+      "name": "Tom Holland",
+      "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJD9EvYUTXc5oRQy0FdIgan14l1kcnscVwQ5ln_XmzFUM-rqn9&s"
+    },
+  ],
+  country: "Africa",
+  released: "2019-10-04",
+  endAt: "2020-02-12",
+  runtime: 117,
+  poster: "https://m.media-amazon.com/images/M/MV5BMjMwNDkxMTgzOF5BMl5BanBnXkFtZTgwNTkwNTQ3NjM@._V1_SY1000_CR0,0,674,1000_AL_.jpg",
+  wallpapers: [
+    'https://images.alphacoders.com/130/130353.jpg',
+  ],
+  trailer: 'https://www.youtube.com/watch?v=fEiX_69tu2I',
+  rated: mockRateds[0],
+  storyline: `Teen Miles Morales becomes Spider-Man of his reality, crossing his path with five counterparts from other dimensions to stop a threat for all realities.`,
+}
+const movieCapUSCW = {
+  id: "captainUScivilquarrel",
+  title: "Captain America: Civil War",
+  genres: [
+    mockGenres[3],
+    mockGenres[4],
+    mockGenres[7],
+  ],
+  screenTypes: [
+    mockScreenType[0],
+    mockScreenType[1],
+  ],
+  directors: [
+    "Anthony Russo",
+    "Joe Russo"
+  ],
+  actors: [
+    {
+      "name": "Robert Downey Jr.",
+      "avatar": "https://m.media-amazon.com/images/M/MV5BNzg1MTUyNDYxOF5BMl5BanBnXkFtZTgwNTQ4MTE2MjE@._V1_SY1000_CR0,0,664,1000_AL_.jpg"
+    },
+    {
+      "name": "Tom Holland",
+      "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJD9EvYUTXc5oRQy0FdIgan14l1kcnscVwQ5ln_XmzFUM-rqn9&s"
+    },
+  ],
+  country: "USA",
+  released: "2019-10-04",
+  endAt: "2020-02-12",
+  runtime: 147,
+  poster: "https://m.media-amazon.com/images/M/MV5BMjQ0MTgyNjAxMV5BMl5BanBnXkFtZTgwNjUzMDkyODE@._V1_SY1000_CR0,0,674,1000_AL_.jpg",
+  wallpapers: [
+    'https://images.alphacoders.com/130/130353.jpg',
+  ],
+  trailer: 'https://www.youtube.com/watch?v=fEiX_69tu2I',
+  rated: mockRateds[0],
+  storyline: `Political involvement in the Avengers' affairs causes a rift between Captain America and Iron Man.`,
+}
+
 export const mockMovies = [
-  movieBatVSup, movieFrozen2, movieJoker, movieJumanji, movieManOfSteel
+  movieBatVSup, movieFrozen2, movieJoker, movieJumanji, movieManOfSteel, movieAvengersIW, movieCGLLR, movieSMITSV
+]
+
+export const mockNowOnMovies2 = [
+  movieBatVSup, movieFrozen2, movieJoker, movieJumanji, movieManOfSteel, movieAvengersIW, movieCGLLR, movieCapUSCW, movieSMH, movieSMITSV
+]
+
+export const mockUpcomingMovies = [
+  movieAvengersIW, movieCGLLR, movieCapUSCW, movieSMH, movieSMITSV
 ]

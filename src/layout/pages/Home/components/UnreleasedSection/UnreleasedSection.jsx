@@ -1,9 +1,21 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 
 import classes from './UnreleasedSection.module.scss';
 
 const UnreleasedSection = (props) => {
+  var history = useHistory();
+
+  const onMovieClick = (movie) => {
+    history.push(
+      `/movie/${movie.id}`,
+      {
+        movie: movie
+      }
+    );
+  }
+
   return (
     <div className={classes['unreleased-section']}>
       <Container>
@@ -14,11 +26,11 @@ const UnreleasedSection = (props) => {
         </div>
         <div className={classes['unreleased-movies-container']}>
           {
-            props.movieList.map(({ title, posterUrl, releaseDate }) => (
+            props.movieList.map((movie) => (
               
                 <div className={classes['unreleased-movie-item']}>
                   <div className={classes['unreleased-movie-item-date']}>
-                    {releaseDate}
+                    {movie.released}
                   </div>
                   <div className={classes['cai-duong-ke-ngang-voi-hinh-tron']}>
                     <div className={classes['cai-duong-ngang-ben-phai']}></div>
@@ -27,11 +39,11 @@ const UnreleasedSection = (props) => {
                   </div>
                   <img 
                     className={classes['unreleased-movie-item-poster']}
-                    src={posterUrl}
-                    alt={title}
+                    src={movie.poster}
+                    alt={movie.title}
                   />
                   <div className={classes['unreleased-movie-item-title']}>
-                    {title}
+                    {movie.title}
                   </div>
                 </div>
             ))

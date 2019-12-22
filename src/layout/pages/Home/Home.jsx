@@ -9,12 +9,13 @@ import classes from './Home.module.scss';
 
 import unreleaseMovies from './unreleased-mock';
 
-import { mockMovies } from '../../../mock-data';
+import { mockMovies, mockUpcomingMovies } from '../../../mock-data';
 import { helper } from '../../../utils/helper';
 
 function Home(props) {
   // const [toggler, setToggler] = useState(false);
   const movies = mockMovies;
+  const upcomingMovies = helper.paginate(mockUpcomingMovies, 5, 1);
   let history = useHistory();
   const opts = {
     height: '390',
@@ -111,7 +112,7 @@ function Home(props) {
         </div>
       </Section>
 
-      <UnreleasedSection movieList={unreleaseMovies}>
+      <UnreleasedSection movieList={upcomingMovies}>
       
       </UnreleasedSection>
     </div>
