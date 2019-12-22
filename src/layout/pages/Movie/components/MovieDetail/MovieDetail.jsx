@@ -1,12 +1,76 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import classes from './MovieDetail.module.scss';
-import { Button } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import { IoMdAddCircleOutline } from "react-icons/io";
+import './MovieDetail.css';
+import { useHistory } from 'react-router-dom';
 
+import { mockShowtimes, mockScreenTypes } from '../../../.././../mock-data';
 import { helper } from '../../../../../utils/helper';
 
 const MovieDetail = (props) => {
+  const [chosenDate, setChosenDate] = useState(0)
+  // TODO: Make modal a seperated component
+  const [showModal, setShowModal] = useState(false);
+
+  var history = useHistory();
   const { movie } = props;
+
+  // TODO: Change to API call
+  const showtimeList = mockShowtimes;
+  const screenTypeList = mockScreenTypes;
+
+  useEffect(() => {
+    const today = new Date();
+    setChosenDate(today.getDate());
+  }, []);
+
+  const getDatesToDisplay = () => {
+    const MS_IN_A_DAY = 86400000;
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    const datesToDisplay = [
+      today,
+      new Date(today.getTime() + MS_IN_A_DAY * 1),
+      new Date(today.getTime() + MS_IN_A_DAY * 2),
+      new Date(today.getTime() + MS_IN_A_DAY * 3),
+      new Date(today.getTime() + MS_IN_A_DAY * 4),
+    ];
+    return datesToDisplay;
+  }
+
+  const getMovieShowtimeByDate = (date) => {
+    var showtimeByScreenType = Array.from(screenTypeList, (screenType => ({ screenType: screenType, showtimes: [] })));
+    for (var showtime of showtimeList) {
+      const showDate = new Date(showtime.startAt);
+      if (showtime.movie.id === movie.id && showDate.getDate() === date) {
+        const screenTypeIndex = showtimeByScreenType.findIndex(st => st.screenType.name === showtime.screenType.name);
+        showtimeByScreenType[screenTypeIndex].showtimes.push(showtime);
+      }
+    }
+    showtimeByScreenType = showtimeByScreenType.filter(st => st.showtimes.length > 0);
+    console.log(showtimeByScreenType);
+    return showtimeByScreenType;
+  }
+
+  const isChosenDate = (date) => {
+    return date === chosenDate;
+  }
+
+  const onDateClick = (date) => {
+    setChosenDate(date)
+  }
+
+  const onShowtimeClick = (showtime) => {
+    history.push(
+      `/movie-ticket/${movie.id}`,
+      {
+        movie: movie,
+        showtime: showtime
+      }
+    );
+  }
+  
   return (
     <div className={classes['container']}>
       <div className={classes['title-and-screentypes']}>
@@ -27,7 +91,13 @@ const MovieDetail = (props) => {
           <img className={classes["poster"]} src={movie.poster} alt="movie-poster"/>
           {/* <Button className={classes['small-button']} variant="dark" size="sm" block>Add To List</Button>
           <Button className={classes['small-button']} variant="dark" size="sm" block>Favorite</Button> */}
-          <Button className={classes['buy-ticket-button']} variant="primary" size= "lg" block>Buy Ticket</Button>
+          <Button
+            className={classes['buy-ticket-button']}
+            variant="primary"
+            size= "lg"
+            onClick={() => setShowModal(true)}
+            block
+          >Buy Ticket</Button>
         </div>
         <div className={classes['movie-infos']}>
           {/* <div>Batman v Superman: Dawn of Justice</div> */}
@@ -76,6 +146,74 @@ const MovieDetail = (props) => {
           </div>
         </div>
       </div>
+      <Modal
+        size="lg"
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        aria-labelledby="example-modal-sizes-title-lg"
+        centered
+        className='my-modal'
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="example-modal-sizes-title-lg">
+            The choice is yours
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className={classes['display-dates']}>
+                {getDatesToDisplay().map(date => (
+                  <div className={classes['date-container']}>
+                    <div 
+                      className={
+                        classes['date-clickable'] +
+                        (isChosenDate(date.getDate())
+                        ? (' ' + classes['date-clickable-active'])
+                        : '')
+                      }
+                      onClick={onDateClick.bind(this, date.getDate())}
+                    >
+                      <div className={classes['day-of-week']}>{helper.getDayOfWeekName(date.getDay())}</div>
+                      <div className={classes['day-of-month']}>{date.getDate()}</div>
+                      <div className={classes['month']}>{helper.getMonthName(date.getMonth())}</div>
+                    </div>
+                    <div className={classes['date-foot']}>
+                      { isChosenDate(date.getDate())
+                        ? <div className={classes['foot-circle']}></div>
+                        : <div className={classes['foot-line']}></div>
+                      }
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className={classes['screen-type-available']}>
+                {getMovieShowtimeByDate(chosenDate).map((showtimeByScreentype, index) => (
+                  <div className={classes['show-time-by-screen-type']}>
+                    <div className={classes['screen-type-container']}>
+                      {showtimeByScreentype.screenType.name}
+                    </div>
+                    <div className={classes['showtimes-container']}>
+                      {showtimeByScreentype.showtimes.map(showtime => (
+                        <div
+                          className={classes['showtime']}
+                          onClick={onShowtimeClick.bind(this, showtime)}
+                        >
+                          {helper.getFormattedTime(new Date(showtime.startAt))}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+                {getMovieShowtimeByDate(chosenDate).length <= 0
+                  ? (
+                    <div className={classes['no-showtime']}>
+                      No Showtime on the chosen Date
+                    </div>
+                  )
+                  : null
+                }
+              </div>
+        </Modal.Body>
+      </Modal>
       {/* <hr className={classes["line"]}/> */}
     </div>
   );

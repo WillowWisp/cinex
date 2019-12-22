@@ -6,7 +6,7 @@ import { Container } from 'react-bootstrap';
 import { useLocation } from "react-router-dom";
 
 // import mockMovie from './mock-movie';
-import mockMovies from '../../../mock-data';
+// import mockMovies from '../../../mock-data';
 // import { nowPlayingMovies } from './mock-movie';
 import { mockNowOnMovies } from '../../../mock-data';
 
@@ -14,13 +14,6 @@ import classes from './Movie.module.scss';
 
 const Movie = () => {
   let location = useLocation();
-  // return (
-  //   <div style={{ backgroundColor: "#0B0F18" }}>
-  //     <MovieShowcase movie={mockMovie}/>
-  //     <MovieDetail movie={mockMovie}/>
-  //   </div>
-  // );
-  // const movie = mockMovie
 
   // TODO: Change to API call
   const movie = location.state.movie;
