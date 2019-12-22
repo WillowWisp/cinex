@@ -7,14 +7,14 @@ import classes from './UnreleasedSection.module.scss';
 const UnreleasedSection = (props) => {
   var history = useHistory();
 
-  const onMovieClick = (movie) => {
-    history.push(
-      `/movie/${movie.id}`,
-      {
-        movie: movie
-      }
-    );
-  }
+  // const onMovieClick = (movie) => {
+  //   history.push(
+  //     `/movie/${movie.id}`,
+  //     {
+  //       movie: movie
+  //     }
+  //   );
+  // }
 
   return (
     <div className={classes['unreleased-section']}>
@@ -26,7 +26,7 @@ const UnreleasedSection = (props) => {
         </div>
         <div className={classes['unreleased-movies-container']}>
           {
-            props.movieList.map((movie) => (
+            props.movies.map((movie) => (
               
                 <div className={classes['unreleased-movie-item']}>
                   <div className={classes['unreleased-movie-item-date']}>

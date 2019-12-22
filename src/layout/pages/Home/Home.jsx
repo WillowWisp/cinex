@@ -4,20 +4,20 @@ import Showcase from './components/Showcase/Showcase';
 import UnreleasedSection from './components/UnreleasedSection/UnreleasedSection';
 import YouTube from 'react-youtube';
 import { useHistory  } from 'react-router-dom';
+import { useStoreState } from 'easy-peasy';
 
 import classes from './Home.module.scss';
 
-import unreleaseMovies from './unreleased-mock';
-
-import { mockMovies, mockUpcomingMovies } from '../../../mock-data';
+// import unreleaseMovies from './unreleased-mock';
+// import { mockMovies, mockUpcomingMovies } from '../../../mock-data';
 import { helper } from '../../../utils/helper';
 
 function Home(props) {
   // const [toggler, setToggler] = useState(false);
 
-  // TODO: Change to API call
-  const movies = mockMovies;
-  const upcomingMovies = helper.paginate(mockUpcomingMovies, 5, 1);
+  const nowOnMovies = useStoreState(state => state.nowOnMovies.items);
+  const upcomingMovies = helper.paginate(useStoreState(state => state.upcomingMovies.items), 5, 1);
+
 
   let history = useHistory();
   const opts = {
@@ -54,7 +54,7 @@ function Home(props) {
 
       <Section title="Now on">
         <div className={'row ' + classes['movie-list-content-container']}>
-          {movies.map(movie => (
+          {nowOnMovies.map(movie => (
             <div
               className={'col-3 ' + classes['movie-list-content-item']}
             >
@@ -108,14 +108,14 @@ function Home(props) {
             Đây là cái trailer nè
           </div> */}
           <YouTube
-            videoId={helper.getYouTubeID(movies[0].trailer)}
+            videoId={nowOnMovies.length > 0 ? helper.getYouTubeID(nowOnMovies[0].trailer) : 'dQw4w9WgXcQ'}
             opts={opts}
             onReady={_onReady}
           />
         </div>
       </Section>
 
-      <UnreleasedSection movieList={upcomingMovies}>
+      <UnreleasedSection movies={upcomingMovies}>
       
       </UnreleasedSection>
     </div>

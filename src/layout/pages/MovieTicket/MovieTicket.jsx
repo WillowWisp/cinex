@@ -6,6 +6,7 @@ import TabSeats from './components/TabSeats/TabSeats';
 import classes from './MovieTicket.module.scss';
 
 function MovieTicket() {
+  // TODO: Forbid accessing directly by Url
   var location = useLocation();
 
   const movie = location.state.movie;

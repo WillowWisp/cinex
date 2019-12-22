@@ -3,21 +3,21 @@ import MovieShowcase from './components/MovieShowcase/MovieShowcase';
 import MovieDetail from './components/MovieDetail/MovieDetail';
 import NowPlayingMovies from './components/NowPlayingMovies/NowPlayingMovies';
 import { Container } from 'react-bootstrap';
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useStoreState } from 'easy-peasy';
 
 // import mockMovie from './mock-movie';
 // import mockMovies from '../../../mock-data';
 // import { nowPlayingMovies } from './mock-movie';
-import { mockNowOnMovies, mockMovies } from '../../../mock-data';
+// import { mockNowOnMovies, mockMovies } from '../../../mock-data';
 
 import classes from './Movie.module.scss';
 
 const Movie = () => {
-  let location = useLocation();
+  // let location = useLocation();
 
-  // TODO: Change to API call
-  const movies = mockMovies;
-  const nowOnMovies = mockNowOnMovies;
+  const movies = useStoreState(state => state.movies.items);
+  const nowOnMovies = useStoreState(state => state.nowOnMovies.items);
 
   const { id } = useParams();
   const movie = movies.find(movie => movie.id === id);
@@ -28,7 +28,7 @@ const Movie = () => {
       <MovieShowcase movie={movie}/>
       <Container>
         <MovieDetail movie={movie}/>
-        <NowPlayingMovies movieList={nowOnMovies}/>
+        <NowPlayingMovies movies={nowOnMovies}/>
       </Container>
     </div>
   );

@@ -1,4 +1,4 @@
-export const mockRateds = [
+export const mockRated = [
   {
     id: "rated_00",
     name: "PG-13",
@@ -147,7 +147,7 @@ const movieBatVSup = {
     'https://images.wallpapersden.com/image/download/batman-vs-superman-hd-images_39935_3840x2160.jpg',
   ],
   trailer: 'https://www.youtube.com/watch?v=IwfUnkBfdZ4&feature=emb_title',
-  rated: mockRateds[0],
+  rated: mockRated[0],
   storyline: `Fearing that the actions of Superman are left unchecked, Batman takes on the Man of Steel, while the world wrestles with what kind of a hero it really needs.`,
 }
 
@@ -186,7 +186,7 @@ const movieJumanji = {
     'http://hdqwalls.com/wallpapers/jumanji-the-next-level-2019-poster-e4.jpg',
   ],
   trailer: 'https://www.youtube.com/watch?v=rBxcF-r9Ibs',
-  rated: mockRateds[0],
+  rated: mockRated[0],
   storyline: `In Jumanji: The Next Level, the gang is back but the game has changed. As they return to rescue one of their own, the players will have to brave parts unknown from arid deserts to snowy mountains, to escape the world's most dangerous game.`,
 }
 
@@ -224,7 +224,7 @@ const movieJoker = {
     'https://cdn.onebauer.media/one/media/5d20/5d91/a205/650c/a1d3/d71f/empire-joker-subscriber-cover-crop.jpeg',
   ],
   trailer: 'https://www.youtube.com/watch?v=-_DJEzZk2pc',
-  rated: mockRateds[1],
+  rated: mockRated[1],
   storyline: `In Gotham City, mentally troubled comedian Arthur Fleck is disregarded and mistreated by society. He then embarks on a downward spiral of revolution and bloody crime. This path brings him face-to-face with his alter-ego: the Joker.`,
 }
 
@@ -262,7 +262,7 @@ const movieFrozen2 = {
     'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/5298bac0-b8bf-4c80-af67-725c1272dbb0/ddh9mhe-6f1a09a3-ef19-4d0c-8c0b-86414e57be3f.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzUyOThiYWMwLWI4YmYtNGM4MC1hZjY3LTcyNWMxMjcyZGJiMFwvZGRoOW1oZS02ZjFhMDlhMy1lZjE5LTRkMGMtOGMwYi04NjQxNGU1N2JlM2YuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.DlwSAHBxFOvHKtUXu0UhpLG8yApLy5EJzopS1acrf60',
   ],
   trailer: 'https://www.youtube.com/watch?v=Zi4LMpSDccc',
-  rated: mockRateds[2],
+  rated: mockRated[2],
   storyline: `Anna, Elsa, Kristoff, Olaf and Sven leave Arendelle to travel to an ancient, autumn-bound forest of an enchanted land. They set out to find the origin of Elsa's powers in order to save their kingdom.`,
 }
 
@@ -300,7 +300,7 @@ const movieManOfSteel = {
     'https://ultrahdwall.com/wp-content/uploads/2013/08/Man-of-Steel-Wallpaper.jpg',
   ],
   trailer: 'https://www.youtube.com/watch?v=T6DJcgm3wNY',
-  rated: mockRateds[0],
+  rated: mockRated[0],
   storyline: `Clark Kent is an alien who as a child was evacuated from his dying world and came to Earth, living as a normal human. But when survivors of his alien home invade Earth, he must reveal himself to the world.`,
 }
 
@@ -344,7 +344,7 @@ const movieAvengersIW = {
     'https://wallpaperaccess.com/full/5920.jpg',
   ],
   trailer: 'https://www.youtube.com/watch?v=TcMBFSGVi1c',
-  rated: mockRateds[0],
+  rated: mockRated[0],
   storyline: `The Avengers and their allies must be willing to sacrifice all in an attempt to defeat the powerful Thanos before his blitz of devastation and ruin puts an end to the universe.`,
 }
 
@@ -383,7 +383,7 @@ const movieSMH = {
     'https://wallpaperaccess.com/full/243562.jpg',
   ],
   trailer: 'https://www.youtube.com/watch?v=TcMBFSGVi1c',
-  rated: mockRateds[0],
+  rated: mockRated[0],
   storyline: `Peter Parker balances his life as an ordinary high school student in Queens with his superhero alter-ego Spider-Man, and finds himself on the trail of a new menace prowling the skies of New York City.`,
 
 }
@@ -420,7 +420,7 @@ const movieCGLLR = {
     'https://cdna.artstation.com/p/assets/images/images/005/637/736/large/alex-os-zero.jpg?1492631829&dl=1',
   ],
   trailer: 'https://www.youtube.com/watch?v=fEiX_69tu2I',
-  rated: mockRateds[0],
+  rated: mockRated[0],
   storyline: `The story takes place several years after Lelouch's "Zero Requiem" plan.`,
 }
 const movieSMITSV = {
@@ -457,7 +457,7 @@ const movieSMITSV = {
     'https://i.pinimg.com/originals/a9/e8/60/a9e8603c729f89e6d7c427b48ab74fca.png',
   ],
   trailer: 'https://www.youtube.com/watch?v=fEiX_69tu2I',
-  rated: mockRateds[0],
+  rated: mockRated[0],
   storyline: `Teen Miles Morales becomes Spider-Man of his reality, crossing his path with five counterparts from other dimensions to stop a threat for all realities.`,
 }
 const movieCapUSCW = {
@@ -495,15 +495,15 @@ const movieCapUSCW = {
     'https://wallpaperplay.com/walls/full/9/6/8/96192.jpg',
   ],
   trailer: 'https://www.youtube.com/watch?v=fEiX_69tu2I',
-  rated: mockRateds[0],
+  rated: mockRated[0],
   storyline: `Political involvement in the Avengers' affairs causes a rift between Captain America and Iron Man.`,
 }
 
-export const mockMovies = [
+export const mockNowOnMovies = [
   movieBatVSup, movieFrozen2, movieJoker, movieJumanji, movieManOfSteel, movieAvengersIW, movieCGLLR, movieSMITSV
 ]
 
-export const mockNowOnMovies = [
+export const mockMovies = [
   movieBatVSup, movieFrozen2, movieJoker, movieJumanji, movieManOfSteel, movieAvengersIW, movieCGLLR, movieCapUSCW, movieSMH, movieSMITSV
 ]
 

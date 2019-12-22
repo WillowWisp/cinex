@@ -4,8 +4,9 @@ import { Button, Modal } from 'react-bootstrap';
 import { IoMdAddCircleOutline } from "react-icons/io";
 import './MovieDetail.css';
 import { useHistory } from 'react-router-dom';
+import { useStoreState } from 'easy-peasy';
 
-import { mockShowtimes, mockScreenTypes } from '../../../.././../mock-data';
+// import { mockShowtimes, mockScreenTypes } from '../../../.././../mock-data';
 import { helper } from '../../../../../utils/helper';
 
 const MovieDetail = (props) => {
@@ -16,9 +17,8 @@ const MovieDetail = (props) => {
   var history = useHistory();
   const { movie } = props;
 
-  // TODO: Change to API call
-  const showtimeList = mockShowtimes;
-  const screenTypeList = mockScreenTypes;
+  const showtimes = useStoreState(state => state.showtimes.items);
+  const screenTypes = useStoreState(state => state.screenTypes.items);
 
   useEffect(() => {
     const today = new Date();
@@ -40,8 +40,8 @@ const MovieDetail = (props) => {
   }
 
   const getMovieShowtimeByDate = (date) => {
-    var showtimeByScreenType = Array.from(screenTypeList, (screenType => ({ screenType: screenType, showtimes: [] })));
-    for (var showtime of showtimeList) {
+    var showtimeByScreenType = Array.from(screenTypes, (screenType => ({ screenType: screenType, showtimes: [] })));
+    for (var showtime of showtimes) {
       const showDate = new Date(showtime.startAt);
       if (showtime.movie.id === movie.id && showDate.getDate() === date) {
         const screenTypeIndex = showtimeByScreenType.findIndex(st => st.screenType.name === showtime.screenType.name);

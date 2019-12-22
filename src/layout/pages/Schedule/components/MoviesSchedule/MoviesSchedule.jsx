@@ -8,22 +8,28 @@ import {helper} from '../../../../../utils/helper';
 // import { mockScreenTypes, mockNowOnMovies, mockShowtimes } from '../../../../../mock-data';
 
 const MoviesSchedule = (props) => {
+  const { screenTypes, nowOnMovies, showtimes } = props;
+
   const [chosenScreenTypes, setChosenScreenTypes] = useState([]);
   const [moviesChosenDate, setMoviesChosenDate] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState(nowOnMovies);
   var history = useHistory();
 
-  const { screenTypeList, nowOnMovieList, showtimeList } = props;
 
   useEffect(() => {
     setChosenScreenTypes(
-      Array.from(screenTypeList, (screenType) => (screenType.id))
+      Array.from(screenTypes, (screenType) => (screenType.id))
     );
     const today = new Date();
     setMoviesChosenDate(
-      Array.from(nowOnMovieList, (movie) => ({ movieId: movie.id, chosenDate: today.getDate() }))
+      Array.from(nowOnMovies, (movie) => ({ movieId: movie.id, chosenDate: today.getDate() }))
     );
     getShowtimesByMovieIdAndDate('movie_00', 21);
   }, []);
+
+  useEffect(() => {
+    setFilteredMovies(nowOnMovies.filter(movie => isAMovieWithAChosenScreenType(movie, chosenScreenTypes)));
+  }, [chosenScreenTypes]);
 
   const getDatesToDisplay = () => {
     const MS_IN_A_DAY = 86400000;
@@ -41,8 +47,8 @@ const MoviesSchedule = (props) => {
 
   const getShowtimesByMovieIdAndDate = (movieId, date) => {
     // TODO: Đưa cho hoàng tử Chăm pa xử lí ở backend
-    var showtimeByScreenType = Array.from(screenTypeList, (screenType => ({ screenType: screenType, showtimes: [] })));
-    for (var showtime of showtimeList) {
+    var showtimeByScreenType = Array.from(screenTypes, (screenType => ({ screenType: screenType, showtimes: [] })));
+    for (var showtime of showtimes) {
       const showDate = new Date(showtime.startAt);
       if (showtime.movie.id === movieId && showDate.getDate() === date) {
         const screenTypeIndex = showtimeByScreenType.findIndex(st => st.screenType.name === showtime.screenType.name);
@@ -50,16 +56,16 @@ const MoviesSchedule = (props) => {
       }
     }
     showtimeByScreenType = showtimeByScreenType.filter(st => st.showtimes.length > 0);
-    console.log(showtimeByScreenType);
+    // console.log(showtimeByScreenType);
     return showtimeByScreenType;
   }
 
   const getChosenDateOfMovie = (movieId) => {
-    console.log(movieId);
+    // console.log(movieId);
     const index = moviesChosenDate.findIndex(chosen => {
       return chosen.movieId === movieId
     });
-    console.log(index);
+    // console.log(index);
 
     return moviesChosenDate[index].chosenDate;
   }
@@ -69,13 +75,23 @@ const MoviesSchedule = (props) => {
   }
 
   const isAllScreenTypesChosen = () => {
-    return chosenScreenTypes.length === screenTypeList.length;
+    return chosenScreenTypes.length === screenTypes.length;
   }
 
   const isChosenDateOfMovie = (movieId, date) => {
     const movieIndex = moviesChosenDate.findIndex(chosen => chosen.movieId === movieId);
-    console.log(date === moviesChosenDate[movieIndex].chosenDate);
+    // console.log(date === moviesChosenDate[movieIndex].chosenDate);
     return date === moviesChosenDate[movieIndex].chosenDate;
+  }
+
+  const isAMovieWithAChosenScreenType = (movie, screenTypes) => {
+    // const movie = nowOnMovies.find(movie => movie.id === movieId);
+    console.log('--------------------');
+    console.log(screenTypes);
+    console.log(Array.from(movie.screenTypes, (screenType => screenType.id)));
+    console.log(screenTypes.some(screenType => Array.from(movie.screenTypes, (screenType => screenType.id)).includes(screenType)));
+    console.log('--------------------');
+    return screenTypes.some(screenType => Array.from(movie.screenTypes, (screenType => screenType.id)).includes(screenType));
   }
 
 
@@ -89,12 +105,14 @@ const MoviesSchedule = (props) => {
     else {
       setChosenScreenTypes([ ...chosenScreenTypes, screenType.id ]);
     }
+    // setFilteredMovies(nowOnMovies.filter(movie => isAMovieWithAChosenScreenType(movie, chosenScreenTypes)));
   }
 
   const onAllScreenTypeClick = () => {
     setChosenScreenTypes(
-      Array.from(screenTypeList, (screenType) => (screenType.id))
+      Array.from(screenTypes, (screenType) => (screenType.id))
     );
+    setFilteredMovies(nowOnMovies)
   }
 
   const onDateClick = (movieId, date) => {
@@ -254,11 +272,11 @@ const MoviesSchedule = (props) => {
           Schedule
         </div>
         <div className={classes['fading-line']}></div>
-        {renderScreenTypes(screenTypeList)}
+        {renderScreenTypes(screenTypes)}
       </div>
 
       <div className={classes['movies']}>
-        { nowOnMovieList.map(movie => (
+        { filteredMovies.map(movie => (
           renderMovie(movie)
         )) }
       </div>
