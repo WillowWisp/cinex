@@ -11,6 +11,7 @@ import {
 } from 'react-router-dom';
 
 import Layout from './layout/Layout';
+import ScrollIntoView from './utils/ScrollIntoView';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -20,7 +21,9 @@ function App() {
   return (
     <StoreProvider store={store}>
       <BrowserRouter>
-        <Layout></Layout>
+        <ScrollIntoView>
+          <Layout></Layout>
+        </ScrollIntoView>
       </BrowserRouter>
     </StoreProvider>
   );
