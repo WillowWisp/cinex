@@ -20,7 +20,7 @@ export const routes = [
     component: <Schedule />
   },
   {
-    path: '/movie-ticket',
+    path: '/movie-ticket/:id',
     component: <MovieTicket />
   },
   {

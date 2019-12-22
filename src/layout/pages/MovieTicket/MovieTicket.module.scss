@@ -6,13 +6,13 @@
 }
 
 .cover {
-  background: url("https://images.wallpapersden.com/image/download/batman-vs-superman-hd-images_39935_3840x2160.jpg");
+  // background: url("https://images.wallpapersden.com/image/download/batman-vs-superman-hd-images_39935_3840x2160.jpg");
   position: absolute;
   top: 0;
   left: 0;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position-y: -100px; // TODO: Dynamic
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  background-position-y: -100px !important; // TODO: Dynamic
   padding-top: 550px;
   width: 100%;
   height: auto;

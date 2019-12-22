@@ -34,5 +34,11 @@ export const helper = {
   getYouTubeID(url){
     url = url.split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
     return (url[2] !== undefined) ? url[2].split(/[^0-9a-z_\-]/i)[0] : url[0];
- }
+  },
+  getFormattedDate(date) {
+    var res ='';
+    console.log(date.getDate().toString());
+    res = date.getDate() + ' ' + this.getMonthName(date.getMonth()).slice(0, 3) + ' ' + date.getFullYear();
+    return res;
+  }
 }

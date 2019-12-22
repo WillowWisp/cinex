@@ -5,6 +5,7 @@
 
   color: white;
   background: transparent;
+  // background: rgba(0, 0, 0, 0.5);
 
   display: flex;
   flex-direction: row;
@@ -53,4 +54,21 @@
       border-radius: 50%;
     }
   }
+}
+
+.nav-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 28px;
+  margin: 0 40px;
+  width: 80px;
+  cursor: pointer;
+  transition: 0.1s all;
+}
+
+.nav-item:hover {
+  font-size: 34px;
+  text-shadow: 0 0 4px #fff;
 }

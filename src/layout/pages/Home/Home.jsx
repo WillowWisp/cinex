@@ -14,8 +14,11 @@ import { helper } from '../../../utils/helper';
 
 function Home(props) {
   // const [toggler, setToggler] = useState(false);
+
+  // TODO: Change to API call
   const movies = mockMovies;
   const upcomingMovies = helper.paginate(mockUpcomingMovies, 5, 1);
+
   let history = useHistory();
   const opts = {
     height: '390',

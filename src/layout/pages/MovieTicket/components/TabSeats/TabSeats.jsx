@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Container } from 'react-bootstrap';
 import FsLightbox from 'fslightbox-react';
 
+import { helper } from '../../../../../utils/helper';
+
 import classes from './TabSeats.module.scss';
 
 const ROOM_INFO = {
@@ -11,9 +13,11 @@ const ROOM_INFO = {
 
 const SEAT_PRICE = 5;
 
-function TabSeats() {
+function TabSeats(props) {
   const [seatsSelected, setSeatSelected] = useState([]);
   const [lightbox, setLightbox] = useState(false);
+
+  const {movie, showtime} = props;
 
   const onClickSeat = (seatKey) => {
     const tmpSeatsSelected = [...seatsSelected];
@@ -66,19 +70,19 @@ function TabSeats() {
           <div className={classes['movie-overview']}>
             <div className={classes['movie-overview-header']}>
               <div className={classes['movie-overview-header-title']}>
-                Batman V Superman
+                {movie.title}
               </div>
               <div className={classes['movie-overview-header-subtitle']}>
                 <span>
                   <i className="fab fa-imdb"></i> 9.9
                 </span>
                 <span>
-                  <i className="far fa-clock"></i> 2h 30min
+                  <i className="far fa-clock"></i> {movie.runtime} min
                 </span>
               </div>
             </div>
             <div className={classes['movie-overview-description']}>
-              Fearing that the actions of Superman are left unchecked, Batman takes on the Man of Steel, while the world wrestles with what kind of a hero it really needs.
+              {movie.storyline}
             </div>
           </div>
 
@@ -97,7 +101,7 @@ function TabSeats() {
                   Date
                 </div>
                 <div className={classes['showtime-value']}>
-                  14 Jan 2077
+                  {helper.getFormattedDate(new Date(showtime.startAt))}
                 </div>
               </div>
               <div className="col">
@@ -105,7 +109,7 @@ function TabSeats() {
                   Show time
                 </div>
                 <div className={classes['showtime-value']}>
-                  02:30
+                  {helper.getFormattedTime(new Date(showtime.startAt))}
                 </div>
               </div>
             </div>
@@ -136,7 +140,7 @@ function TabSeats() {
         </div>
         <div className="col-3">
           <div className={classes['movie-poster-container']}>
-            <img src="https://cdn.shopify.com/s/files/1/0030/3802/products/2016-08-15_16-25-43.png" alt="movie poster" className={classes['movie-poster']} />
+            <img src={movie.poster} alt="movie poster" className={classes['movie-poster']} />
             <div className={classes['watch-trailer-container']}>
               <div className={classes['watch-trailer-button']} onClick={() => {setLightbox(!lightbox)}}>
                 <i className="fas fa-play"></i>
@@ -179,7 +183,7 @@ function TabSeats() {
       <FsLightbox
         toggler={ lightbox }
         sources={ [
-        'https://www.youtube.com/watch?v=0WWzgGyAH6Y',
+          movie.trailer,
         ] }
       />
     </Container>

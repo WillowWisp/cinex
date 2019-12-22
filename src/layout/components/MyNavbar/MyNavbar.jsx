@@ -11,6 +11,10 @@ function MyNavbar() {
     history.push('/');
   }
 
+  const onScheduleClick = () => {
+    history.push('/schedule');
+  }
+
   console.log(classes['search-icon'])
   return (
     <div className={classes['navbar']}>
@@ -23,6 +27,10 @@ function MyNavbar() {
           <span>Cinex</span>
         </div>
         <div className={classes['navbar-right']}>
+          <div
+            className={classes['nav-item']}
+            onClick={onScheduleClick}
+          >Schedule</div>
           <i className={classes['search-icon'] + ' fas fa-search'}></i>
           <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="Profile" className={classes['profile']} />
         </div>

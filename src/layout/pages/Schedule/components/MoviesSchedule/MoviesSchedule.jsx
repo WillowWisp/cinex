@@ -1,22 +1,26 @@
 import React, {useState, useEffect} from 'react';
 import { Container } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
+
 import classes from './MoviesSchedule.module.scss';
 
 import {helper} from '../../../../../utils/helper';
+// import { mockScreenTypes, mockNowOnMovies, mockShowtimes } from '../../../../../mock-data';
 
-import { mockScreenType, mockNowOnMovies, mockShowtimes } from '../../../../../mock-data';
-
-const MoviesSchedule = () => {
+const MoviesSchedule = (props) => {
   const [chosenScreenTypes, setChosenScreenTypes] = useState([]);
   const [moviesChosenDate, setMoviesChosenDate] = useState([]);
+  var history = useHistory();
+
+  const { screenTypeList, nowOnMovieList, showtimeList } = props;
 
   useEffect(() => {
     setChosenScreenTypes(
-      Array.from(mockScreenType, (screenType) => (screenType.id))
+      Array.from(screenTypeList, (screenType) => (screenType.id))
     );
     const today = new Date();
     setMoviesChosenDate(
-      Array.from(mockNowOnMovies, (movie) => ({ movieId: movie.id, chosenDate: today.getDate() }))
+      Array.from(nowOnMovieList, (movie) => ({ movieId: movie.id, chosenDate: today.getDate() }))
     );
     getShowtimesByMovieIdAndDate('movie_00', 21);
   }, []);
@@ -37,8 +41,8 @@ const MoviesSchedule = () => {
 
   const getShowtimesByMovieIdAndDate = (movieId, date) => {
     // TODO: Đưa cho hoàng tử Chăm pa xử lí ở backend
-    var showtimeByScreenType = Array.from(mockScreenType, (screenType => ({ screenType: screenType, showtimes: [] })));
-    for (var showtime of mockShowtimes) {
+    var showtimeByScreenType = Array.from(screenTypeList, (screenType => ({ screenType: screenType, showtimes: [] })));
+    for (var showtime of showtimeList) {
       const showDate = new Date(showtime.startAt);
       if (showtime.movie.id === movieId && showDate.getDate() === date) {
         const screenTypeIndex = showtimeByScreenType.findIndex(st => st.screenType.name === showtime.screenType.name);
@@ -65,7 +69,7 @@ const MoviesSchedule = () => {
   }
 
   const isAllScreenTypesChosen = () => {
-    return chosenScreenTypes.length === mockScreenType.length;
+    return chosenScreenTypes.length === screenTypeList.length;
   }
 
   const isChosenDateOfMovie = (movieId, date) => {
@@ -89,7 +93,7 @@ const MoviesSchedule = () => {
 
   const onAllScreenTypeClick = () => {
     setChosenScreenTypes(
-      Array.from(mockScreenType, (screenType) => (screenType.id))
+      Array.from(screenTypeList, (screenType) => (screenType.id))
     );
   }
 
@@ -101,6 +105,25 @@ const MoviesSchedule = () => {
         : chosen
       ))
     )
+  }
+
+  const onMovieClick = (movie) => {
+    history.push(
+      `/movie/${movie.id}`,
+      {
+        movie: movie
+      }
+    );
+  }
+
+  const onShowtimeClick = (movie, showtime) => {
+    history.push(
+      `/movie-ticket/${movie.id}`,
+      {
+        movie: movie,
+        showtime: showtime
+      }
+    );
   }
 
   const renderScreenTypeButton = (screenType) => {
@@ -127,7 +150,7 @@ const MoviesSchedule = () => {
           : classes['screen-type-button']
         }
         onClick={onAllScreenTypeClick}
-      >Tất cả
+      >All
       </div>
         {screenTypes.map(screenType => (
           renderScreenTypeButton(screenType)
@@ -144,10 +167,18 @@ const MoviesSchedule = () => {
       <div className={classes['movie-container']}>
         <div className={classes['movie-info-and-display-dates']}>
           <div className={classes['poster-container']}>
-            <img className={classes["poster"]} src={movie.poster} alt="movie-poster"/>
+            <img
+              className={classes["poster"]}
+              src={movie.poster}
+              alt="movie-poster"
+              onClick={onMovieClick.bind(this, movie)}
+            />
           </div>
           <div className={classes['info-and-display-dates']}>
-            <div className={classes['info']}>
+            <div
+              className={classes['info']}
+              onClick={onMovieClick.bind(this, movie)}
+            >
               <div className={classes['title']}>{movie.title}</div>
               <div className={classes['sub-info']}>{movie.runtime} min  |  {helper.getFormattedGenresString(movie.genres)}</div>
             </div>
@@ -189,7 +220,10 @@ const MoviesSchedule = () => {
                   </div>
                   <div className={classes['showtimes-container']}>
                     {showtimeByScreentype.showtimes.map(showtime => (
-                      <div className={classes['showtime']}>
+                      <div
+                        className={classes['showtime']}
+                        onClick={onShowtimeClick.bind(this, movie, showtime)}
+                      >
                         {helper.getFormattedTime(new Date(showtime.startAt))}
                       </div>
                     ))}
@@ -217,14 +251,14 @@ const MoviesSchedule = () => {
 
       <div className={classes['header']}>
         <div className={classes['big-text']}>
-          Lịch chiếu
+          Schedule
         </div>
         <div className={classes['fading-line']}></div>
-        {renderScreenTypes(mockScreenType)}
+        {renderScreenTypes(screenTypeList)}
       </div>
 
       <div className={classes['movies']}>
-        { mockNowOnMovies.map(movie => (
+        { nowOnMovieList.map(movie => (
           renderMovie(movie)
         )) }
       </div>

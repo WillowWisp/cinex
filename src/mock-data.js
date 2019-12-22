@@ -16,7 +16,7 @@ export const mockRateds = [
   }
 ]
 
-export const mockScreenType = [
+export const mockScreenTypes = [
   {
     id: 'screenType_00',
     name: '2D',
@@ -74,36 +74,36 @@ const mockGenres = [
   },
 ]
 
-export const mockNowOnMovies = [
-  {
-    id: 'movie_00',
-    poster: 'https://m.media-amazon.com/images/M/MV5BNGVjNWI4ZGUtNzE0MS00YTJmLWE0ZDctN2ZiYTk2YmI3NTYyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg',
-    title: 'Gã hề dí dỏm',
-    runtime: 122,
-    genres: [ mockGenres[0], mockGenres[1], mockGenres[2] ],
-  },
-  {
-    id: 'movie_01',
-    poster: 'https://m.media-amazon.com/images/M/MV5BYThjYzcyYzItNTVjNy00NDk0LTgwMWQtYjMwNmNlNWJhMzMyXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg',
-    title: 'Batman v Superman: Dawn of Justice',
-    runtime: 151,
-    genres: [ mockGenres[3], mockGenres[4], mockGenres[5] ],
-  },
-  {
-    id: 'movie_02',
-    poster: 'https://m.media-amazon.com/images/M/MV5BZmUxZmVlNGMtZGMyMy00MmM3LTg5ZjgtNzFhZWU4MTU5MjIwXkEyXkFqcGdeQXVyMzgxODM4NjM@._V1_SY1000_CR0,0,666,1000_AL_.jpg',
-    title: 'Code Geass: Lelouch of the Re;Surrection',
-    runtime: 112,
-    genres: [ mockGenres[3], mockGenres[4], mockGenres[6] ],
-  },
-  {
-    id: 'movie_03',
-    poster: 'https://m.media-amazon.com/images/M/MV5BMjMwNDkxMTgzOF5BMl5BanBnXkFtZTgwNTkwNTQ3NjM@._V1_SY1000_CR0,0,674,1000_AL_.jpg',
-    title: 'Spider-Man: Into the Spider-Verse',
-    runtime: 117,
-    genres: [ mockGenres[3], mockGenres[4], mockGenres[6] ],
-  },
-]
+// export const mockNowOnMovies = [
+//   {
+//     id: 'movie_00',
+//     poster: 'https://m.media-amazon.com/images/M/MV5BNGVjNWI4ZGUtNzE0MS00YTJmLWE0ZDctN2ZiYTk2YmI3NTYyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg',
+//     title: 'Gã hề dí dỏm',
+//     runtime: 122,
+//     genres: [ mockGenres[0], mockGenres[1], mockGenres[2] ],
+//   },
+//   {
+//     id: 'movie_01',
+//     poster: 'https://m.media-amazon.com/images/M/MV5BYThjYzcyYzItNTVjNy00NDk0LTgwMWQtYjMwNmNlNWJhMzMyXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg',
+//     title: 'Batman v Superman: Dawn of Justice',
+//     runtime: 151,
+//     genres: [ mockGenres[3], mockGenres[4], mockGenres[5] ],
+//   },
+//   {
+//     id: 'movie_02',
+//     poster: 'https://m.media-amazon.com/images/M/MV5BZmUxZmVlNGMtZGMyMy00MmM3LTg5ZjgtNzFhZWU4MTU5MjIwXkEyXkFqcGdeQXVyMzgxODM4NjM@._V1_SY1000_CR0,0,666,1000_AL_.jpg',
+//     title: 'Code Geass: Lelouch of the Re;Surrection',
+//     runtime: 112,
+//     genres: [ mockGenres[3], mockGenres[4], mockGenres[6] ],
+//   },
+//   {
+//     id: 'movie_03',
+//     poster: 'https://m.media-amazon.com/images/M/MV5BMjMwNDkxMTgzOF5BMl5BanBnXkFtZTgwNTkwNTQ3NjM@._V1_SY1000_CR0,0,674,1000_AL_.jpg',
+//     title: 'Spider-Man: Into the Spider-Verse',
+//     runtime: 117,
+//     genres: [ mockGenres[3], mockGenres[4], mockGenres[6] ],
+//   },
+// ]
 
 // showtime {
 //   -id: string
@@ -111,142 +111,6 @@ export const mockNowOnMovies = [
 //   -startAt: yyyy-MM-ddThh:mm:ss.SSS
 //   -screenType: string
 //   }
-
-  
-export const mockShowtimes = [
-  {
-    id: 'showtime_00',
-    movie: mockNowOnMovies[0],
-    startAt: '2019-12-24T11:30:00.000',
-    screenType: mockScreenType[0],
-  },
-  {
-    id: 'showtime_01',
-    movie: mockNowOnMovies[0],
-    startAt: '2019-12-24T15:30:00.000',
-    screenType: mockScreenType[0],
-  },
-  {
-    id: 'showtime_02',
-    movie: mockNowOnMovies[0],
-    startAt: '2019-12-24T21:00:00.000',
-    screenType: mockScreenType[0],
-  },
-  {
-    id: 'showtime_03',
-    movie: mockNowOnMovies[0],
-    startAt: '2019-12-22T9:30:00.000',
-    screenType: mockScreenType[0],
-  },
-  {
-    id: 'showtime_04',
-    movie: mockNowOnMovies[0],
-    startAt: '2019-12-22T13:30:00.000',
-    screenType: mockScreenType[0],
-  },
-  {
-    id: 'showtime_05',
-    movie: mockNowOnMovies[0],
-    startAt: '2019-12-22T18:00:00.000',
-    screenType: mockScreenType[0],
-  },
-  {
-    id: 'showtime_06',
-    movie: mockNowOnMovies[0],
-    startAt: '2019-12-24T9:30:00.000',
-    screenType: mockScreenType[2],
-  },
-  {
-    id: 'showtime_07',
-    movie: mockNowOnMovies[0],
-    startAt: '2019-12-24T13:30:00.000',
-    screenType: mockScreenType[2],
-  },
-  {
-    id: 'showtime_08',
-    movie: mockNowOnMovies[0],
-    startAt: '2019-12-24T18:00:00.000',
-    screenType: mockScreenType[2],
-  },
-  {
-    id: 'showtime_09',
-    movie: mockNowOnMovies[1],
-    startAt: '2019-12-24T18:00:00.000',
-    screenType: mockScreenType[1],
-  },
-  {
-    id: 'showtime_10',
-    movie: 'movie_02',
-    startAt: '2019-12-22T13:00:00.000',
-    screenType: mockScreenType[1],
-  },
-  {
-    id: 'showtime_11',
-    movie: mockNowOnMovies[1],
-    startAt: '2019-12-22T11:30:00.000',
-    screenType: mockScreenType[0],
-  },
-  {
-    id: 'showtime_12',
-    movie: mockNowOnMovies[1],
-    startAt: '2019-12-22T15:30:00.000',
-    screenType: mockScreenType[0],
-  },
-  {
-    id: 'showtime_13',
-    movie: mockNowOnMovies[1],
-    startAt: '2019-12-22T21:00:00.000',
-    screenType: mockScreenType[0],
-  },
-  {
-    id: 'showtime_14',
-    movie: mockNowOnMovies[1],
-    startAt: '2019-12-23T9:30:00.000',
-    screenType: mockScreenType[0],
-  },
-  {
-    id: 'showtime_15',
-    movie: mockNowOnMovies[1],
-    startAt: '2019-12-23T13:30:00.000',
-    screenType: mockScreenType[0],
-  },
-  {
-    id: 'showtime_16',
-    movie: mockNowOnMovies[1],
-    startAt: '2019-12-23T18:00:00.000',
-    screenType: mockScreenType[0],
-  },
-  {
-    id: 'showtime_17',
-    movie: mockNowOnMovies[1],
-    startAt: '2019-12-22T9:30:00.000',
-    screenType: mockScreenType[2],
-  },
-  {
-    id: 'showtime_18',
-    movie: mockNowOnMovies[1],
-    startAt: '2019-12-22T13:30:00.000',
-    screenType: mockScreenType[2],
-  },
-  {
-    id: 'showtime_19',
-    movie: mockNowOnMovies[1],
-    startAt: '2019-12-22T18:00:00.000',
-    screenType: mockScreenType[2],
-  },
-  {
-    id: 'showtime_20',
-    movie: mockNowOnMovies[2],
-    startAt: '2019-12-22T18:00:00.000',
-    screenType: mockScreenType[1],
-  },
-  {
-    id: 'showtime_21',
-    movie: mockNowOnMovies[3],
-    startAt: '2019-12-23T13:00:00.000',
-    screenType: mockScreenType[1],
-  },
-]
 
 const movieBatVSup = {
   id: "5dfde0cff7c51f000463c3d0",
@@ -257,9 +121,9 @@ const movieBatVSup = {
     mockGenres[5],
   ],
   screenTypes: [
-    mockScreenType[0],
-    mockScreenType[1],
-    mockScreenType[2],
+    mockScreenTypes[0],
+    mockScreenTypes[1],
+    mockScreenTypes[2],
   ],
   directors: [
     "Zack Snyder"
@@ -297,8 +161,8 @@ const movieJumanji = {
     mockGenres[8],
   ],
   screenTypes: [
-    mockScreenType[1],
-    mockScreenType[2],
+    mockScreenTypes[1],
+    mockScreenTypes[2],
   ],
   directors: [
     "Jake Kasdan"
@@ -335,8 +199,8 @@ const movieJoker = {
     mockGenres[2],
   ],
   screenTypes: [
-    mockScreenType[0],
-    mockScreenType[1],
+    mockScreenTypes[0],
+    mockScreenTypes[1],
   ],
   directors: [
     "Todd Phillips"
@@ -373,8 +237,8 @@ const movieFrozen2 = {
     mockGenres[2],
   ],
   screenTypes: [
-    mockScreenType[0],
-    mockScreenType[1],
+    mockScreenTypes[0],
+    mockScreenTypes[1],
   ],
   directors: [
     "Todd Phillips"
@@ -411,8 +275,8 @@ const movieManOfSteel = {
     mockGenres[5],
   ],
   screenTypes: [
-    mockScreenType[0],
-    mockScreenType[1],
+    mockScreenTypes[0],
+    mockScreenTypes[1],
   ],
   directors: [
     "Zack Snyder"
@@ -449,9 +313,9 @@ const movieAvengersIW = {
     mockGenres[5],
   ],
   screenTypes: [
-    mockScreenType[0],
-    mockScreenType[1],
-    mockScreenType[2],
+    mockScreenTypes[0],
+    mockScreenTypes[1],
+    mockScreenTypes[2],
   ],
   directors: [
     "Anthony Russo",
@@ -493,9 +357,9 @@ const movieSMH = {
     mockGenres[5],
   ],
   screenTypes: [
-    mockScreenType[0],
-    mockScreenType[1],
-    mockScreenType[2],
+    mockScreenTypes[0],
+    mockScreenTypes[1],
+    mockScreenTypes[2],
   ],
   directors: [
     "Jon Watts",
@@ -516,7 +380,7 @@ const movieSMH = {
   runtime: 133,
   poster: "https://m.media-amazon.com/images/M/MV5BNTk4ODQ1MzgzNl5BMl5BanBnXkFtZTgwMTMyMzM4MTI@._V1_SY1000_CR0,0,658,1000_AL_.jpg",
   wallpapers: [
-    'https://wallpaperaccess.com/full/5920.jpg',
+    'https://wallpaperaccess.com/full/243562.jpg',
   ],
   trailer: 'https://www.youtube.com/watch?v=TcMBFSGVi1c',
   rated: mockRateds[0],
@@ -532,7 +396,7 @@ const movieCGLLR = {
     mockGenres[6],
   ],
   screenTypes: [
-    mockScreenType[0],
+    mockScreenTypes[0],
   ],
   directors: [
     "Gorou Taniguchi",
@@ -553,7 +417,7 @@ const movieCGLLR = {
   runtime: 112,
   poster: "https://m.media-amazon.com/images/M/MV5BZmUxZmVlNGMtZGMyMy00MmM3LTg5ZjgtNzFhZWU4MTU5MjIwXkEyXkFqcGdeQXVyMzgxODM4NjM@._V1_SY1000_CR0,0,666,1000_AL_.jpg",
   wallpapers: [
-    'https://images.alphacoders.com/130/130353.jpg',
+    'https://cdna.artstation.com/p/assets/images/images/005/637/736/large/alex-os-zero.jpg?1492631829&dl=1',
   ],
   trailer: 'https://www.youtube.com/watch?v=fEiX_69tu2I',
   rated: mockRateds[0],
@@ -568,7 +432,7 @@ const movieSMITSV = {
     mockGenres[6],
   ],
   screenTypes: [
-    mockScreenType[0],
+    mockScreenTypes[0],
   ],
   directors: [
     "Bob Persichetti",
@@ -590,7 +454,7 @@ const movieSMITSV = {
   runtime: 117,
   poster: "https://m.media-amazon.com/images/M/MV5BMjMwNDkxMTgzOF5BMl5BanBnXkFtZTgwNTkwNTQ3NjM@._V1_SY1000_CR0,0,674,1000_AL_.jpg",
   wallpapers: [
-    'https://images.alphacoders.com/130/130353.jpg',
+    'https://i.pinimg.com/originals/a9/e8/60/a9e8603c729f89e6d7c427b48ab74fca.png',
   ],
   trailer: 'https://www.youtube.com/watch?v=fEiX_69tu2I',
   rated: mockRateds[0],
@@ -605,8 +469,8 @@ const movieCapUSCW = {
     mockGenres[7],
   ],
   screenTypes: [
-    mockScreenType[0],
-    mockScreenType[1],
+    mockScreenTypes[0],
+    mockScreenTypes[1],
   ],
   directors: [
     "Anthony Russo",
@@ -628,7 +492,7 @@ const movieCapUSCW = {
   runtime: 147,
   poster: "https://m.media-amazon.com/images/M/MV5BMjQ0MTgyNjAxMV5BMl5BanBnXkFtZTgwNjUzMDkyODE@._V1_SY1000_CR0,0,674,1000_AL_.jpg",
   wallpapers: [
-    'https://images.alphacoders.com/130/130353.jpg',
+    'https://wallpaperplay.com/walls/full/9/6/8/96192.jpg',
   ],
   trailer: 'https://www.youtube.com/watch?v=fEiX_69tu2I',
   rated: mockRateds[0],
@@ -639,10 +503,153 @@ export const mockMovies = [
   movieBatVSup, movieFrozen2, movieJoker, movieJumanji, movieManOfSteel, movieAvengersIW, movieCGLLR, movieSMITSV
 ]
 
-export const mockNowOnMovies2 = [
+export const mockNowOnMovies = [
   movieBatVSup, movieFrozen2, movieJoker, movieJumanji, movieManOfSteel, movieAvengersIW, movieCGLLR, movieCapUSCW, movieSMH, movieSMITSV
 ]
 
 export const mockUpcomingMovies = [
   movieAvengersIW, movieCGLLR, movieCapUSCW, movieSMH, movieSMITSV
+]
+
+
+  
+export const mockShowtimes = [
+  {
+    id: 'showtime_00',
+    movie: mockNowOnMovies[0],
+    startAt: '2019-12-24T11:30:00.000',
+    screenType: mockScreenTypes[0],
+  },
+  {
+    id: 'showtime_01',
+    movie: mockNowOnMovies[0],
+    startAt: '2019-12-24T15:30:00.000',
+    screenType: mockScreenTypes[0],
+  },
+  {
+    id: 'showtime_02',
+    movie: mockNowOnMovies[0],
+    startAt: '2019-12-24T21:00:00.000',
+    screenType: mockScreenTypes[0],
+  },
+  {
+    id: 'showtime_03',
+    movie: mockNowOnMovies[0],
+    startAt: '2019-12-22T9:30:00.000',
+    screenType: mockScreenTypes[0],
+  },
+  {
+    id: 'showtime_04',
+    movie: mockNowOnMovies[0],
+    startAt: '2019-12-22T13:30:00.000',
+    screenType: mockScreenTypes[0],
+  },
+  {
+    id: 'showtime_05',
+    movie: mockNowOnMovies[0],
+    startAt: '2019-12-22T18:00:00.000',
+    screenType: mockScreenTypes[0],
+  },
+  {
+    id: 'showtime_06',
+    movie: mockNowOnMovies[0],
+    startAt: '2019-12-24T9:30:00.000',
+    screenType: mockScreenTypes[2],
+  },
+  {
+    id: 'showtime_07',
+    movie: mockNowOnMovies[0],
+    startAt: '2019-12-24T13:30:00.000',
+    screenType: mockScreenTypes[2],
+  },
+  {
+    id: 'showtime_08',
+    movie: mockNowOnMovies[0],
+    startAt: '2019-12-24T18:00:00.000',
+    screenType: mockScreenTypes[2],
+  },
+  {
+    id: 'showtime_09',
+    movie: mockNowOnMovies[1],
+    startAt: '2019-12-24T18:00:00.000',
+    screenType: mockScreenTypes[1],
+  },
+  {
+    id: 'showtime_10',
+    movie: 'movie_02',
+    startAt: '2019-12-22T13:00:00.000',
+    screenType: mockScreenTypes[1],
+  },
+  {
+    id: 'showtime_11',
+    movie: mockNowOnMovies[1],
+    startAt: '2019-12-22T11:30:00.000',
+    screenType: mockScreenTypes[0],
+  },
+  {
+    id: 'showtime_12',
+    movie: mockNowOnMovies[1],
+    startAt: '2019-12-22T15:30:00.000',
+    screenType: mockScreenTypes[0],
+  },
+  {
+    id: 'showtime_13',
+    movie: mockNowOnMovies[1],
+    startAt: '2019-12-22T21:00:00.000',
+    screenType: mockScreenTypes[0],
+  },
+  {
+    id: 'showtime_14',
+    movie: mockNowOnMovies[1],
+    startAt: '2019-12-23T9:30:00.000',
+    screenType: mockScreenTypes[0],
+  },
+  {
+    id: 'showtime_15',
+    movie: mockNowOnMovies[1],
+    startAt: '2019-12-23T13:30:00.000',
+    screenType: mockScreenTypes[0],
+  },
+  {
+    id: 'showtime_16',
+    movie: mockNowOnMovies[1],
+    startAt: '2019-12-23T18:00:00.000',
+    screenType: mockScreenTypes[0],
+  },
+  {
+    id: 'showtime_17',
+    movie: mockNowOnMovies[1],
+    startAt: '2019-12-22T9:30:00.000',
+    screenType: mockScreenTypes[2],
+  },
+  {
+    id: 'showtime_18',
+    movie: mockNowOnMovies[1],
+    startAt: '2019-12-22T13:30:00.000',
+    screenType: mockScreenTypes[2],
+  },
+  {
+    id: 'showtime_19',
+    movie: mockNowOnMovies[1],
+    startAt: '2019-12-22T18:00:00.000',
+    screenType: mockScreenTypes[2],
+  },
+  {
+    id: 'showtime_20',
+    movie: mockNowOnMovies[2],
+    startAt: '2019-12-22T18:00:00.000',
+    screenType: mockScreenTypes[1],
+  },
+  {
+    id: 'showtime_21',
+    movie: mockNowOnMovies[3],
+    startAt: '2019-12-23T13:00:00.000',
+    screenType: mockScreenTypes[1],
+  },
+  {
+    id: 'showtime_22',
+    movie: mockNowOnMovies[6],
+    startAt: '2019-12-23T13:00:00.000',
+    screenType: mockScreenTypes[1],
+  },
 ]
