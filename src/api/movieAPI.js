@@ -9,7 +9,7 @@ export const getAllNowOnMovies = () => {
 }
 
 export const getAllUpcomingMovies = () => {
-  return axios.get('/movies/coming');
+  return axios.get('/movies/coming?in=9999');
 }
 
 export const getMovieDetailById = (id) => {

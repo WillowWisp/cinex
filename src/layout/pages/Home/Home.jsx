@@ -1,10 +1,14 @@
-import React from 'react';
-import Section from './components/Section/Section';
-import Showcase from './components/Showcase/Showcase';
-import UnreleasedSection from './components/UnreleasedSection/UnreleasedSection';
+import React, { useEffect, useState } from 'react';
+
+import * as movieAPI from '../../../api/movieAPI';
+
 import YouTube from 'react-youtube';
 import { useHistory  } from 'react-router-dom';
 import { useStoreState } from 'easy-peasy';
+
+import Section from './components/Section/Section';
+import Showcase from './components/Showcase/Showcase';
+import UnreleasedSection from './components/UnreleasedSection/UnreleasedSection';
 
 import classes from './Home.module.scss';
 
@@ -14,10 +18,11 @@ import { helper } from '../../../utils/helper';
 
 function Home(props) {
   // const [toggler, setToggler] = useState(false);
+  const [nowOnMovies, setNowOnMovies] = useState([]);
+  const [upcomingMovies, setUpcomingMovies] = useState([]);
 
-  const nowOnMovies = useStoreState(state => state.nowOnMovies.items);
-  const upcomingMovies = helper.paginate(useStoreState(state => state.upcomingMovies.items), 5, 1);
-
+  // const nowOnMovies = useStoreState(state => state.nowOnMovies.items);
+  // const upcomingMovies = helper.paginate(useStoreState(state => state.upcomingMovies.items), 5, 1);
 
   let history = useHistory();
   const opts = {
@@ -27,6 +32,33 @@ function Home(props) {
       autoplay: 0
     }
   };
+
+  useEffect(() => {
+    getNowOnMovies();
+    getUpcomingMovies();
+  }, []);
+
+  const getNowOnMovies = () => {
+    movieAPI.getAllNowOnMovies()
+      .then(response => {
+        console.log(response);
+        setNowOnMovies(response.data);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
+  const getUpcomingMovies = () => {
+    movieAPI.getAllUpcomingMovies()
+      .then(response => {
+        console.log(response);
+        setUpcomingMovies(response.data);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
 
   const _onReady = (event) => {
     // access to player in all event handlers via event.target
@@ -40,12 +72,7 @@ function Home(props) {
     //     movie: movie
     //   }
     // })
-    history.push(
-      `/movie/${movie.id}`,
-      { 
-        movie: movie
-      }
-    )
+    history.push(`/movie/${movie.id}`);
   }
 
   return (
@@ -56,6 +83,7 @@ function Home(props) {
         <div className={'row ' + classes['movie-list-content-container']}>
           {nowOnMovies.map(movie => (
             <div
+              key={movie.id}
               className={'col-3 ' + classes['movie-list-content-item']}
             >
               <img
@@ -64,41 +92,9 @@ function Home(props) {
                 alt="movie poster"
                 onClick={onMovieClick.bind(this, movie)}
               />
-              <div className={classes['movie-list-content-item-title']}>{movie.title}</div>
+              <div className={classes['movie-list-content-item-title']} onClick={onMovieClick.bind(this, movie)}>{movie.title}</div>
             </div>
           ))}
-          {/* <div className={'col-3 ' + classes['movie-list-content-item']}>
-            <img className={classes['movie-list-content-item-img']} src="https://images-na.ssl-images-amazon.com/images/I/51IUMTimF1L.jpg" alt="movie poster" />
-            <div className={classes['movie-list-content-item-title']}>Justice League</div>
-          </div>
-          <div className={'col-3 ' + classes['movie-list-content-item']}>
-            <img className={classes['movie-list-content-item-img']} src="https://images-na.ssl-images-amazon.com/images/I/419LgovIeHL.jpg" alt="movie poster" />
-            <div className={classes['movie-list-content-item-title']}>Man of steel</div>
-          </div>
-          <div className={'col-3 ' + classes['movie-list-content-item']}>
-            <img className={classes['movie-list-content-item-img']} src="https://cdn.shopify.com/s/files/1/0030/3802/products/2016-08-15_16-25-43.png?v=1475082718" alt="movie poster" />
-            <div className={classes['movie-list-content-item-title']}>Batman V Superman</div>
-          </div>
-          <div className={'col-3 ' + classes['movie-list-content-item']}>
-            <img className={classes['movie-list-content-item-img']} src="https://images-na.ssl-images-amazon.com/images/I/71JGOXv98RL._SY679_.jpg" alt="movie poster" />
-            <div className={classes['movie-list-content-item-title']}>Aquaman</div>
-          </div>
-          <div className={'col-3 ' + classes['movie-list-content-item']}>
-            <img className={classes['movie-list-content-item-img']} src="https://images-na.ssl-images-amazon.com/images/I/71bT8Kyo5yL._SY606_.jpg" alt="movie poster" />
-            <div className={classes['movie-list-content-item-title']}>Shazam!</div>
-          </div>
-          <div className={'col-3 ' + classes['movie-list-content-item']}>
-            <img className={classes['movie-list-content-item-img']} src="https://m.media-amazon.com/images/M/MV5BNGVjNWI4ZGUtNzE0MS00YTJmLWE0ZDctN2ZiYTk2YmI3NTYyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SY1000_CR0,0,674,1000_AL_.jpg" alt="movie poster" />
-            <div className={classes['movie-list-content-item-title']}>Joker</div>
-          </div>
-          <div className={'col-3 ' + classes['movie-list-content-item']}>
-            <img className={classes['movie-list-content-item-img']} src="https://m.media-amazon.com/images/M/MV5BNDFmZjgyMTEtYTk5MC00NmY0LWJhZjktOWY2MzI5YjkzODNlXkEyXkFqcGdeQXVyMDA4NzMyOA@@._V1_SY1000_SX675_AL_.jpg" alt="movie poster" />
-            <div className={classes['movie-list-content-item-title']}>Wonder Woman</div>
-          </div>
-          <div className={'col-3 ' + classes['movie-list-content-item']}>
-            <img className={classes['movie-list-content-item-img']} src="https://d2e111jq13me73.cloudfront.net/sites/default/files/styles/product_image_aspect_switcher_228w/public/product-images/csm-movie/avengers-endgame-movie-poster-image0.jpg" alt="movie poster" />
-            <div className={classes['movie-list-content-item-title']}>Avengers: Endgame</div>
-          </div> */}
         </div>
       </Section>
 
@@ -108,16 +104,14 @@ function Home(props) {
             Đây là cái trailer nè
           </div> */}
           <YouTube
-            videoId={nowOnMovies.length > 0 ? helper.getYouTubeID(nowOnMovies[0].trailer) : 'dQw4w9WgXcQ'}
+            videoId={nowOnMovies.length > 0 && nowOnMovies[0].trailer ? helper.getYouTubeID(nowOnMovies[0].trailer) : 'dQw4w9WgXcQ'}
             opts={opts}
             onReady={_onReady}
           />
         </div>
       </Section>
 
-      <UnreleasedSection movies={upcomingMovies}>
-      
-      </UnreleasedSection>
+      <UnreleasedSection movies={upcomingMovies} />
     </div>
   )
 }

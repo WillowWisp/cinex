@@ -34,12 +34,11 @@ function MovieTicket(props) {
   return (
     <div className={classes['page']}>
       {
-        // TODO: Add Loading here instead
         showtime ?
         <>
           <div
             className={classes['cover']}
-            style={{zIndex: 1, background: `url(https://images.wallpapersden.com/image/download/batman-vs-superman-hd-images_39935_3840x2160.jpg)`}}
+            style={{zIndex: 1, background: `url(${showtime.movie.wallpapers && showtime.movie.wallpapers[0] ? showtime.movie.wallpapers[0] : 'https://wallpaperaccess.com/full/1679635.jpg'})`}}
           >
             <div className={classes['cover-opacity']}></div>
           </div>
@@ -48,6 +47,7 @@ function MovieTicket(props) {
           </div>
         </>
         :
+        // TODO: Add Loading here instead
         <div></div>
       }
     </div>
