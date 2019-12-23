@@ -37,7 +37,6 @@ export const helper = {
   },
   getFormattedDate(date) {
     var res ='';
-    console.log(date.getDate().toString());
     res = date.getDate() + ' ' + this.getMonthName(date.getMonth()).slice(0, 3) + ' ' + date.getFullYear();
     return res;
   }
