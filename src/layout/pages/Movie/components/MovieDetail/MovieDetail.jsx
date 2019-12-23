@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import classes from './MovieDetail.module.scss';
-import { Button, Modal } from 'react-bootstrap';
-import { IoMdAddCircleOutline } from "react-icons/io";
-import './MovieDetail.css';
+
+import * as showtimeAPI from '../../../../../api/showtimeAPI';
+import * as screenTypeAPI from '../../../../../api/screenTypeAPI';
+import { helper } from '../../../../../utils/helper';
 import { useHistory } from 'react-router-dom';
 import { useStoreState } from 'easy-peasy';
+import moment from 'moment';
 
-// import { mockShowtimes, mockScreenTypes } from '../../../.././../mock-data';
-import { helper } from '../../../../../utils/helper';
+import { Button, Modal } from 'react-bootstrap';
+import { IoMdAddCircleOutline } from "react-icons/io";
+
+import './MovieDetail.css';
+import classes from './MovieDetail.module.scss';
 
 const MovieDetail = (props) => {
+  const [screenTypes, setScreenTypes] = useState([]);
+  const [showtimes, setShowtimes] = useState([]);
   const [chosenDate, setChosenDate] = useState(0)
   // TODO: Make modal a seperated component
   const [showModal, setShowModal] = useState(false);
@@ -17,14 +23,39 @@ const MovieDetail = (props) => {
   var history = useHistory();
   const { movie } = props;
 
-  const showtimes = useStoreState(state => state.showtimes.items);
-  const screenTypes = useStoreState(state => state.screenTypes.items);
+  // const showtimes = useStoreState(state => state.showtimes.items);
+  // const screenTypes = useStoreState(state => state.screenTypes.items);
 
   useEffect(() => {
+    console.log(movie);
+    getScreenTypes();
+    getShowtimesByMovie(movie.id);
+
     const today = new Date();
     setChosenDate(today.getDate());
   }, []);
 
+  const getScreenTypes = () => {
+    screenTypeAPI.getAllScreenTypes()
+      .then(response => {
+        console.log(response);
+        setScreenTypes(response.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  const getShowtimesByMovie = (movieId) => {
+    showtimeAPI.getShowtimesByMovie(movieId)
+      .then(response => {
+        console.log(response);
+        setShowtimes(response.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 
   const getDatesToDisplay = () => {
     const MS_IN_A_DAY = 86400000;
@@ -50,7 +81,6 @@ const MovieDetail = (props) => {
       }
     }
     showtimeByScreenType = showtimeByScreenType.filter(st => st.showtimes.length > 0);
-    console.log(showtimeByScreenType);
     return showtimeByScreenType;
   }
 
@@ -64,7 +94,7 @@ const MovieDetail = (props) => {
 
   const onShowtimeClick = (showtime) => {
     history.push(
-      `/movie-ticket/${movie.id}`,
+      `/movie-ticket/${showtime.id}`,
       {
         movie: movie,
         showtime: showtime
@@ -108,7 +138,7 @@ const MovieDetail = (props) => {
               {/* <div>Batman v Superman: Dawn of Justice</div> */}
               <div className={classes['screentypes']}>
               { movie.screenTypes.map( type => (
-                <div className={classes["type"]}>
+                <div key={type.id} className={classes["type"]}>
                   {type.name}
                 </div>
               ) ) }
@@ -130,8 +160,8 @@ const MovieDetail = (props) => {
                 </div>
                 <div className={classes['cast']}>
                   <div className={classes['section-name-text']}>Cast</div>
-                  { movie.actors.map(actor => (
-                    <div className={classes['normal-text'] + " " + classes['actor-name']}>
+                  { movie.actors.map((actor, index) => (
+                    <div key={`actor${index}`} className={classes['normal-text'] + " " + classes['actor-name']}>
                       {/* <span><img className={classes['actor-img']} src={actor.imgUrl} alt="actor-img"/></span> */}
                       <span><div style={{ backgroundImage: "url(" + actor.avatar + ")" }} className={classes['actor-img']}></div></span>
                       {/* <span className={classes['actor-img']}></span> */}
@@ -166,8 +196,8 @@ const MovieDetail = (props) => {
             </Modal.Header>
             <Modal.Body>
               <div className={classes['display-dates']}>
-                    {getDatesToDisplay().map(date => (
-                      <div className={classes['date-container']}>
+                    {getDatesToDisplay().map((date, index) => (
+                      <div key={`date${index}`} className={classes['date-container']}>
                         <div 
                           className={
                             classes['date-clickable'] +
@@ -192,17 +222,18 @@ const MovieDetail = (props) => {
                   </div>
                   <div className={classes['screen-type-available']}>
                     {getMovieShowtimeByDate(chosenDate).map((showtimeByScreentype, index) => (
-                      <div className={classes['show-time-by-screen-type']}>
+                      <div key={`showtimeByScreentype${index}`} className={classes['show-time-by-screen-type']}>
                         <div className={classes['screen-type-container']}>
                           {showtimeByScreentype.screenType.name}
                         </div>
                         <div className={classes['showtimes-container']}>
                           {showtimeByScreentype.showtimes.map(showtime => (
                             <div
+                              key={showtime.id}
                               className={classes['showtime']}
                               onClick={onShowtimeClick.bind(this, showtime)}
                             >
-                              {helper.getFormattedTime(new Date(showtime.startAt))}
+                              {moment(showtime.startAt).format('h:mm A z')}
                             </div>
                           ))}
                         </div>

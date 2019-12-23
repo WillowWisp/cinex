@@ -40,10 +40,10 @@ function TabSeats(props) {
   const renderSeats = () => {
     let divsRow = [];
 
-    for (let i = 0; i < ROOM_INFO.totalRows; i++) {
+    for (let i = 0; i < showtime.room.totalRows; i++) {
       let divsSeat = [];
       const letter = (i + 10).toString(36).toUpperCase(); // Convert number to letter
-      for (let j = 0; j < ROOM_INFO.seatsPerRow; j++) {
+      for (let j = 0; j < showtime.room.totalSeatsPerRow; j++) {
         const seatKey = `${letter}${j}`
         const className = seatsSelected.includes(seatKey) ? classes['seat-selected'] : classes['seat-available']
         divsSeat.push(

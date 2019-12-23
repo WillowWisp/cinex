@@ -57,7 +57,7 @@ const Movie = (props) => {
     <div className={classes['movie-page']} style={{ backgroundColor: "#0b0f18" }}>
       {movie ? <MovieShowcase movie={movie}/> : null}
       <Container>
-        <MovieDetail movie={movie}/>
+        {movie ? <MovieDetail movie={movie}/> : null}
         {nowOnMovies ? <NowPlayingMovies movies={nowOnMovies}/> : null}
       </Container>
     </div>
