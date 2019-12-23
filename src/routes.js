@@ -9,22 +9,22 @@ import Schedule from './layout/pages/Schedule/Schedule';
 export const routes = [
   {
     path: '/movie/:id',
-    component: <MovieDetail />
+    component: MovieDetail
   },
   {
     path: '/user',
-    component: <User />
+    component: User
   },
   {
     path: '/schedule',
-    component: <Schedule />
+    component: Schedule
   },
   {
     path: '/movie-ticket/:id',
-    component: <MovieTicket />
+    component: MovieTicket
   },
   {
     path: '/',
-    component: <Home />
+    component: Home
   },
 ];

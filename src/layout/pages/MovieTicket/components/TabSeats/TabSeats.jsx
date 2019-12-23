@@ -5,6 +5,7 @@ import FsLightbox from 'fslightbox-react';
 import { helper } from '../../../../../utils/helper';
 
 import classes from './TabSeats.module.scss';
+import { useEffect } from 'react';
 
 const ROOM_INFO = {
   totalRows: 10,
@@ -17,7 +18,11 @@ function TabSeats(props) {
   const [seatsSelected, setSeatSelected] = useState([]);
   const [lightbox, setLightbox] = useState(false);
 
-  const {movie, showtime} = props;
+  const {showtime} = props;
+
+  useEffect(() => {
+    console.log(showtime);
+  }, [showtime])
 
   const onClickSeat = (seatKey) => {
     const tmpSeatsSelected = [...seatsSelected];
@@ -70,19 +75,19 @@ function TabSeats(props) {
           <div className={classes['movie-overview']}>
             <div className={classes['movie-overview-header']}>
               <div className={classes['movie-overview-header-title']}>
-                {movie.title}
+                {showtime.movie.title}
               </div>
               <div className={classes['movie-overview-header-subtitle']}>
                 <span>
                   <i className="fab fa-imdb"></i> 9.9
                 </span>
                 <span>
-                  <i className="far fa-clock"></i> {movie.runtime} min
+                  <i className="far fa-clock"></i> {showtime.movie.runtime} min
                 </span>
               </div>
             </div>
             <div className={classes['movie-overview-description']}>
-              {movie.storyline}
+              {showtime.movie.storyline}
             </div>
           </div>
 
@@ -93,7 +98,7 @@ function TabSeats(props) {
                   Theater no
                 </div>
                 <div className={classes['showtime-value']}>
-                  CinexRoom 01
+                  {showtime.room.name}
                 </div>
               </div>
               <div className="col">
@@ -140,7 +145,7 @@ function TabSeats(props) {
         </div>
         <div className="col-3">
           <div className={classes['movie-poster-container']}>
-            <img src={movie.poster} alt="movie poster" className={classes['movie-poster']} />
+            <img src={showtime.movie.poster} alt="movie poster" className={classes['movie-poster']} />
             <div className={classes['watch-trailer-container']}>
               <div className={classes['watch-trailer-button']} onClick={() => {setLightbox(!lightbox)}}>
                 <i className="fas fa-play"></i>
@@ -162,14 +167,14 @@ function TabSeats(props) {
               <div className={classes['seats-review-section-quantity']}>
                 {seatsSelected.length}
               </div>
-              <div className={classes['seats-review-section-price']}>${SEAT_PRICE}</div>
+              <div className={classes['seats-review-section-price']}>${showtime.price}</div>
             </div>
             <div className={classes['seats-review-total']}>
               <div className={classes['seats-review-total-title']}>
                 Total
               </div>
               <div className={classes['seats-review-total-price']}>
-                ${seatsSelected.length * SEAT_PRICE}
+                ${seatsSelected.length * showtime.price}
               </div>
             </div>
             {/* TODO: Make this btn a component */}
@@ -183,7 +188,7 @@ function TabSeats(props) {
       <FsLightbox
         toggler={ lightbox }
         sources={ [
-          movie.trailer,
+          showtime.movie.trailer,
         ] }
       />
     </Container>
