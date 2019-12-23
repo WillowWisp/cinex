@@ -3,7 +3,7 @@ import * as movieAPI from '../../../api/movieAPI';
 import MovieShowcase from './components/MovieShowcase/MovieShowcase'; 
 import MovieDetail from './components/MovieDetail/MovieDetail';
 import NowPlayingMovies from './components/NowPlayingMovies/NowPlayingMovies';
-import { Container } from 'react-bootstrap';
+import { Container, Spinner } from 'react-bootstrap';
 import { useParams } from "react-router-dom";
 import { useStoreState } from 'easy-peasy';
 
@@ -53,15 +53,35 @@ const Movie = (props) => {
   }
 
   // console.log(location. state.movie);
-  return (
-    <div className={classes['movie-page']} style={{ backgroundColor: "#0b0f18" }}>
-      {movie ? <MovieShowcase movie={movie}/> : null}
-      <Container>
-        {movie ? <MovieDetail movie={movie}/> : null}
-        {nowOnMovies ? <NowPlayingMovies movies={nowOnMovies}/> : null}
-      </Container>
-    </div>
-  );
+  // return (
+  //   <div className={classes['movie-page']} style={{ backgroundColor: "#0b0f18" }}>
+  //     {movie ? <MovieShowcase movie={movie}/> : null}
+  //     <Container>
+  //       {movie ? <MovieDetail movie={movie}/> : null}
+  //       {nowOnMovies ? <NowPlayingMovies movies={nowOnMovies}/> : null}
+  //     </Container>
+  //   </div>
+  // );
+  return movie 
+    ? (
+      <div style={{ backgroundColor: "#0b0f18" }}>
+        <div className={classes['movie-page'] + ' ' + classes['fade-in']}>
+          <MovieShowcase movie={movie}/>
+          <Container>
+            <MovieDetail movie={movie}/>
+            <NowPlayingMovies movies={nowOnMovies}/>
+          </Container>
+        </div>
+      </div>
+    )
+    : (
+      <div style={{ backgroundColor: "#0b0f18", height: '100vh', display: 'flex' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1 }}>
+          <Spinner animation="grow" variant="light" style={{ width: '2.5rem', height: '2.5rem' }}/>
+        </div>
+      </div>
+    )
+  ;
 }
 
 export default Movie;

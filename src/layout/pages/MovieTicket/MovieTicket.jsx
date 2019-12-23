@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 // import { useLocation } from 'react-router-dom';
+import { Spinner } from 'react-bootstrap';
 
 import * as showtimeAPI from '../../../api/showtimeAPI';
 
@@ -50,7 +51,11 @@ function MovieTicket(props) {
         </>
         :
         // TODO: Add Loading here instead
-        <div></div>
+        <div style={{ backgroundColor: "#0b0f18", height: '100vh', display: 'flex' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1 }}>
+            <Spinner animation="grow" variant="light" style={{ width: '2.5rem', height: '2.5rem' }}/>
+          </div>
+        </div>
       }
     </div>
   )

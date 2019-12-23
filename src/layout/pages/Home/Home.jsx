@@ -5,6 +5,7 @@ import * as movieAPI from '../../../api/movieAPI';
 import YouTube from 'react-youtube';
 import { useHistory  } from 'react-router-dom';
 import { useStoreState } from 'easy-peasy';
+import { Spinner } from 'react-bootstrap';
 
 import Section from './components/Section/Section';
 import Showcase from './components/Showcase/Showcase';
@@ -75,30 +76,38 @@ function Home(props) {
     history.push(`/movie/${movie.id}`);
   }
 
-  return (
-    <div className={classes['home']}>
-      <Showcase />
-
-      <Section title="Now on">
-        <div className={'row ' + classes['movie-list-content-container']}>
-          {nowOnMovies.map(movie => (
-            <div
-              key={movie.id}
-              className={'col-3 ' + classes['movie-list-content-item']}
-            >
-              <img
-                className={classes['movie-list-content-item-img']}
-                src={movie.poster}
-                alt="movie poster"
-                onClick={onMovieClick.bind(this, movie)}
-              />
-              <div className={classes['movie-list-content-item-title']} onClick={onMovieClick.bind(this, movie)}>{movie.title}</div>
-            </div>
-          ))}
+  const renderNowOnSection = () => {
+    return nowOnMovies.length > 0
+      ? (
+        <div className={'row ' + classes['movie-list-content-container'] + ' ' + classes['fade-in']}>  
+          {
+            nowOnMovies.map(movie => (
+              <div
+                key={movie.id}
+                className={'col-3 ' + classes['movie-list-content-item']}
+              >
+                <img
+                  className={classes['movie-list-content-item-img']}
+                  src={movie.poster}
+                  alt="movie poster"
+                  onClick={onMovieClick.bind(this, movie)}
+                />
+                <div className={classes['movie-list-content-item-title']} onClick={onMovieClick.bind(this, movie)}>{movie.title}</div>
+              </div>
+            ))
+          }
         </div>
-      </Section>
+      )
+      : (
+        <div className={classes['child-centering']}>
+          <Spinner animation="grow" variant="light" style={{ width: '2.5rem', height: '2.5rem' }}/>
+        </div>
+      );
+  }
 
-      <Section title="Trailer">
+  const renderTrailerSection = () => {
+    return nowOnMovies.length > 0
+      ? (
         <div className={classes['trailer-container']}>
           {/* <div className={classes['mai-lam-tiep']}>
             Đây là cái trailer nè
@@ -109,9 +118,27 @@ function Home(props) {
             onReady={_onReady}
           />
         </div>
+      )
+      : (
+        <div className={classes['child-centering']}>
+          <Spinner animation="grow" variant="light" style={{ width: '2.5rem', height: '2.5rem' }}/>
+        </div>
+      );
+  }
+
+  return (
+    <div className={classes['home']}>
+      <Showcase movies={nowOnMovies}/>
+
+      <Section title="Now on">
+        {renderNowOnSection()}
       </Section>
 
-      <UnreleasedSection movies={upcomingMovies} />
+      <Section title="Trailer">
+        {renderTrailerSection()}
+      </Section>
+
+      <UnreleasedSection movies={helper.paginate(upcomingMovies, 5, 1)} />
     </div>
   )
 }
