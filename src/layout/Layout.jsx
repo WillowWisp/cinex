@@ -9,8 +9,7 @@ import {
 function Layout() {
   const renderRouter = () => {
     return routes.map(route => (
-      <Route path={route.path} key={route.path} exact>
-        { route.component }
+      <Route path={route.path} key={route.path} exact component={route.component}>
       </Route>
     ));
   }
