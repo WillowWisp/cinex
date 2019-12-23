@@ -135,13 +135,7 @@ const MoviesSchedule = (props) => {
   }
 
   const onShowtimeClick = (movie, showtime) => {
-    history.push(
-      `/movie-ticket/${movie.id}`,
-      {
-        movie: movie,
-        showtime: showtime
-      }
-    );
+    history.push(`/movie-ticket/${showtime.id}`);
   }
 
   const renderScreenTypeButton = (screenType) => {

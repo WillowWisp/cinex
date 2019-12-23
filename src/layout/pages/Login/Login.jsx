@@ -3,21 +3,33 @@ import React, { useEffect, useState } from 'react';
 import * as authAPI from '../../../api/authAPI';
 
 import classes from './Login.module.scss';
+import { useStoreActions } from 'easy-peasy';
+import { Redirect } from 'react-router-dom';
 
 function Login(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const setLoginToken = useStoreActions(actions => actions.auth.setLoginToken);
 
   const onLogin = (event) => {
     event.preventDefault();
     authAPI.login(username, password)
       .then((response) => {
         console.log(response);
+        setLoginToken(response.data.token);
+        setIsLoggedIn(true);
       })
       .catch(err => {
         console.log(err);
       })
     // console.log({ username, password });
+  }
+
+  if (isLoggedIn) {
+    return <Redirect to="/" />
   }
 
   return (

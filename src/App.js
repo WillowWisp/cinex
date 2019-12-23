@@ -1,26 +1,46 @@
-import React from 'react';
-
+import React, { useEffect } from 'react';
 import axios from 'axios';
 
-// import './App.css';
-import './styles/global.scss';
-
-import { StoreProvider } from 'easy-peasy';
+import * as authAPI from './api/authAPI';
+import { StoreProvider, useStoreActions } from 'easy-peasy';
 import { store } from './store';
-
-import {
-  BrowserRouter,
-} from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import Layout from './layout/Layout';
 import ScrollIntoView from './utils/ScrollIntoView';
 
+import './styles/global.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 axios.defaults.baseURL = 'https://cinex.herokuapp.com';
 
 function App() {
-  
+  // const setToken = useStoreActions(actions => actions.auth.setToken);
+  // const setToken = store.getActions().auth.setToken;
+
+  useEffect(() => {
+    checkTokenLoggedIn();
+  }, []);
+
+  const checkTokenLoggedIn = () => {
+    const tokenStr = localStorage.getItem('token');
+    if (tokenStr) {
+      authAPI.checkToken(tokenStr)
+        .then(response => {
+          if (response.data === true) {
+            // TODO: Find out if this is the right way to dispatch action in App.js
+            store.getActions().auth.setLoginToken(tokenStr);
+          } else {
+            store.getActions().auth.removeLoginToken();
+          }
+        })
+        .catch(err => {
+          store.getActions().auth.removeLoginToken();
+        })
+    } else {
+      store.getActions().auth.removeLoginToken();
+    }
+  }
 
   return (
     <StoreProvider store={store}>

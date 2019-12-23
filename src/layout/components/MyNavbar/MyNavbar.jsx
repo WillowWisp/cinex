@@ -1,10 +1,14 @@
 import React from 'react';
 import { Container, Dropdown } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+import { useStoreState } from 'easy-peasy';
 
 import classes from './MyNavbar.module.scss';
 
 function MyNavbar() {
+  const authState = useStoreState(state => state.auth.authState);
+  console.log(authState);
+
   var history = useHistory();
 
   const onLogoClick = () => {

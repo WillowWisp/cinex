@@ -3,10 +3,26 @@ import { mockMovies, mockUpcomingMovies, mockNowOnMovies,
   mockScreenTypes, mockRates, mockShowtimes } from './mock-data';
 
 export const store = createStore({
-  todos: {
-    items: ['Create store', 'Wrap application', 'Use store'],
-    add: action((state, payload) => {
-      state.items.push(payload)
+  // todos: {
+  //   items: ['Create store', 'Wrap application', 'Use store'],
+  //   add: action((state, payload) => {
+  //     state.items.push(payload)
+  //   })
+  // },
+  auth: {
+    authState: {
+      tokenStr: '',
+      isLoggedIn: false,
+    },
+    setLoginToken: action((state, payload) => {
+      state.authState.tokenStr = payload;
+      state.authState.isLoggedIn = true;
+      localStorage.setItem('token', payload);
+    }),
+    removeLoginToken: action((state, payload) => {
+      state.authState.tokenStr = '';
+      state.authState.isLoggedIn = false;
+      localStorage.removeItem('token');
     })
   },
   movies: {
