@@ -8,7 +8,7 @@ function Home(props) {
   // const [toggler, setToggler] = useState(false);
   return (
     <div className={classes['section']}>
-      <Container>
+      <Container style={{ display: 'flex', flexDirection: 'column', flex: '1' }}>
         <div className={classes['section-title-container']}>
           <div className={classes['section-title-text']}>
             { props.title }

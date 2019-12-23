@@ -1,11 +1,13 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+import { Spinner } from 'react-bootstrap';
 
 import classes from './UnreleasedSection.module.scss';
 
 const UnreleasedSection = (props) => {
-  var history = useHistory();
+  // var history = useHistory();
+const { movies } = props;
 
   // const onMovieClick = (movie) => {
   //   history.push(
@@ -16,15 +18,10 @@ const UnreleasedSection = (props) => {
   //   );
   // }
 
-  return (
-    <div className={classes['unreleased-section']}>
-      <Container>
-        <div className={classes['section-title-container']}>
-          <div className={classes['section-title-text']}>
-            Coming Soon
-          </div>
-        </div>
-        <div className={classes['unreleased-movies-container']}>
+  const renderSection = () => {
+    return movies.length > 0
+      ? (
+        <div className={classes['unreleased-movies-container'] + ' ' + classes['fade-in']}>
           {
             props.movies.map((movie) => (
                 <div className={classes['unreleased-movie-item']} key={movie.id}>
@@ -48,6 +45,23 @@ const UnreleasedSection = (props) => {
             ))
           }
         </div>
+      )
+      : (
+        <div className={classes['child-centering']}>
+          <Spinner animation="grow" variant="light" style={{ width: '2.5rem', height: '2.5rem' }}/>
+        </div>
+      );
+  }
+
+  return (
+    <div className={classes['unreleased-section']}>
+      <Container style={{ display: 'flex', flexDirection: 'column', flex: '1' }}>
+        <div className={classes['section-title-container']}>
+          <div className={classes['section-title-text']}>
+            Coming Soon
+          </div>
+        </div>
+        { renderSection() }
       </Container>
     </div>
   );
