@@ -5,6 +5,7 @@ import MovieTicket from './layout/pages/MovieTicket/MovieTicket';
 import User from './layout/pages/User';
 import Movie from './layout/pages/Movie/Movie';
 import Schedule from './layout/pages/Schedule/Schedule';
+import Login from './layout/pages/Login/Login';
 
 export const routes = [
   {
@@ -22,6 +23,10 @@ export const routes = [
   {
     path: '/movie-ticket/:id',
     component: MovieTicket
+  },
+  {
+    path: '/login',
+    component: Login
   },
   {
     path: '/',
