@@ -60,14 +60,16 @@ function Showcase(props) {
   const renderShowcase = () => {
     return movies.length > 0 
     ? (
-      <div className={classes['fade-in']} style={{ backgroundColor: '#0b0f18' }}>
-        <Carousel interval={3000}>
-          { filteredOutMoviesWithoutWallpaper(movies).map(movie => (
-            <Carousel.Item>
-              {renderWallpaperSlide(movie)}
-            </Carousel.Item>
-          ))}
-        </Carousel>
+      <div style={{ backgroundColor: '#0b0f18' }}>
+        <div className={classes['fade-in']} style={{ backgroundColor: '#0b0f18' }}>
+          <Carousel interval={3000}>
+            { filteredOutMoviesWithoutWallpaper(movies).map(movie => (
+              <Carousel.Item>
+                {renderWallpaperSlide(movie)}
+              </Carousel.Item>
+            ))}
+          </Carousel>
+        </div>
       </div>
     ) 
     : renderLoadingSlide();
