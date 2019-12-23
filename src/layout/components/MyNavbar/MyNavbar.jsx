@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
+import { Container, Dropdown } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
 import classes from './MyNavbar.module.scss';
@@ -15,7 +15,6 @@ function MyNavbar() {
     history.push('/schedule');
   }
 
-  console.log(classes['search-icon'])
   return (
     <div className={classes['navbar']}>
       <Container className={classes['navbar-inner-container']}>
@@ -31,12 +30,34 @@ function MyNavbar() {
             className={classes['nav-item']}
             onClick={onScheduleClick}
           >Schedule</div>
-          <i className={classes['search-icon'] + ' fas fa-search'}></i>
-          <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="Profile" className={classes['profile']} />
+
+          <Dropdown>
+            <Dropdown.Toggle as={TestComponent} id="dropdown-basic">
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item href="/login">Login</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         </div>
       </Container>
     </div>
   );
 }
+
+// The forwardRef is important!!
+// Dropdown needs access to the DOM node in order to position the Menu
+const TestComponent = React.forwardRef(({ children, onClick }, ref) => (
+  <img
+    src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+    alt="Profile"
+    className={classes['profile']}
+    ref={ref}
+    onClick={e => {
+      e.preventDefault();
+      onClick(e);
+    }}
+  />
+))
 
 export default MyNavbar;

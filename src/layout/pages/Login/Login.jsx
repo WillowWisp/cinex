@@ -1,9 +1,24 @@
 import React, { useEffect, useState } from 'react';
 
+import * as authAPI from '../../../api/authAPI';
+
 import classes from './Login.module.scss';
 
 function Login(props) {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
+  const onLogin = (event) => {
+    event.preventDefault();
+    authAPI.login(username, password)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    // console.log({ username, password });
+  }
 
   return (
     <div className={classes['page-content']}>
@@ -12,18 +27,32 @@ function Login(props) {
           <div className={classes['card-header-text']}>Sign In</div>
         </div>
         <div className="card-body">
-          <form>
+          <form onSubmit={(event) => onLogin(event)}>
             <div className="input-group form-group">
               <div className="input-group-prepend">
                 <span className="input-group-text"><i className="fas fa-user"></i></span>
               </div>
-              <input type="text" className="form-control" placeholder="Username" style={{fontSize: 22}} />
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Username"
+                style={{fontSize: 22}}
+                value={username}
+                onChange={(event) => {setUsername(event.target.value)}}
+              />
             </div>
             <div className="input-group form-group">
               <div className="input-group-prepend">
                 <span className="input-group-text"><i className="fas fa-key"></i></span>
               </div>
-              <input type="password" className="form-control" placeholder="Password" style={{fontSize: 22}} />
+              <input
+                type="password"
+                className="form-control"
+                placeholder="Password"
+                style={{fontSize: 22}}
+                value={password}
+                onChange={(event) => {setPassword(event.target.value)}}
+              />
             </div>
             <div className={`${classes['remember-and-login-btn-container']}`}>
               <div>
