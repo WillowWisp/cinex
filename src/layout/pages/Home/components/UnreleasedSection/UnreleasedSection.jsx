@@ -27,8 +27,7 @@ const UnreleasedSection = (props) => {
         <div className={classes['unreleased-movies-container']}>
           {
             props.movies.map((movie) => (
-              
-                <div className={classes['unreleased-movie-item']}>
+                <div className={classes['unreleased-movie-item']} key={movie.id}>
                   <div className={classes['unreleased-movie-item-date']}>
                     {movie.released}
                   </div>
