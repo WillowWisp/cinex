@@ -15,11 +15,13 @@ export const store = createStore({
       isLoggedIn: false,
     },
     setLoginToken: action((state, payload) => {
+      // Login
       state.authState.tokenStr = payload;
       state.authState.isLoggedIn = true;
       localStorage.setItem('token', payload);
     }),
     removeLoginToken: action((state, payload) => {
+      // Logout
       state.authState.tokenStr = '';
       state.authState.isLoggedIn = false;
       localStorage.removeItem('token');

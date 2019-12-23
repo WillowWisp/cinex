@@ -6,6 +6,7 @@ import User from './layout/pages/User';
 import Movie from './layout/pages/Movie/Movie';
 import Schedule from './layout/pages/Schedule/Schedule';
 import Login from './layout/pages/Login/Login';
+import SignUp from './layout/pages/SignUp/SignUp';
 
 export const routes = [
   {
@@ -27,6 +28,10 @@ export const routes = [
   {
     path: '/login',
     component: Login
+  },
+  {
+    path: '/sign-up',
+    component: SignUp
   },
   {
     path: '/',

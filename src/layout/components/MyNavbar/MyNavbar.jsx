@@ -1,13 +1,13 @@
 import React from 'react';
 import { Container, Dropdown } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
-import { useStoreState } from 'easy-peasy';
+import { useStoreState, useStoreActions } from 'easy-peasy';
 
 import classes from './MyNavbar.module.scss';
 
 function MyNavbar() {
   const authState = useStoreState(state => state.auth.authState);
-  console.log(authState);
+  const removeLoginToken = useStoreActions(actions => actions.auth.removeLoginToken);
 
   var history = useHistory();
 
@@ -17,6 +17,11 @@ function MyNavbar() {
 
   const onScheduleClick = () => {
     history.push('/schedule');
+  }
+
+  const onLogoutClick = () => {
+    removeLoginToken();
+    window.location.reload();
   }
 
   return (
@@ -39,9 +44,20 @@ function MyNavbar() {
             <Dropdown.Toggle as={TestComponent} id="dropdown-basic">
             </Dropdown.Toggle>
 
-            <Dropdown.Menu>
-              <Dropdown.Item href="/login">Login</Dropdown.Item>
-            </Dropdown.Menu>
+            {
+              authState.isLoggedIn === false ?
+              <>
+                <Dropdown.Menu>
+                  <Dropdown.Item href="/login">Login</Dropdown.Item>
+                </Dropdown.Menu>
+              </>
+              :
+              <>
+                <Dropdown.Menu>
+                  <Dropdown.Item onClick={() => onLogoutClick()}>Logout</Dropdown.Item>
+                </Dropdown.Menu>
+              </>
+            }
           </Dropdown>
         </div>
       </Container>

@@ -30,6 +30,12 @@ function App() {
           if (response.data === true) {
             // TODO: Find out if this is the right way to dispatch action in App.js
             store.getActions().auth.setLoginToken(tokenStr);
+
+            // Attach Token to request header
+            axios.interceptors.request.use(function (config) {
+              config.headers.Authorization = tokenStr;
+              return config;
+            });
           } else {
             store.getActions().auth.removeLoginToken();
           }
