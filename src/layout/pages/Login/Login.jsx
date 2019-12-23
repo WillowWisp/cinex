@@ -78,7 +78,7 @@ function Login(props) {
         </div>
         <div className="card-footer">
           <div className="d-flex justify-content-center links">
-            Don't have an account?<a href="#" className="ml-2 font-weight-bold">Sign Up</a>
+            Don't have an account?<a href="/sign-up" className="ml-2 font-weight-bold">Sign Up</a>
           </div>
           <div className="d-flex justify-content-center">
             <a href="#" className="font-weight-bold">Forgot your password?</a>

@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
+import { useStoreState } from 'easy-peasy';
+import { helper } from '../../../../../utils/helper';
+import * as ticketAPI from '../../../../../api/ticketAPI';
+
 import { Container } from 'react-bootstrap';
 import FsLightbox from 'fslightbox-react';
 
-import { helper } from '../../../../../utils/helper';
-
 import classes from './TabSeats.module.scss';
-import { useEffect } from 'react';
 
 const ROOM_INFO = {
   totalRows: 10,
@@ -18,13 +20,15 @@ function TabSeats(props) {
   const [seatsSelected, setSeatSelected] = useState([]);
   const [lightbox, setLightbox] = useState(false);
 
-  const {showtime} = props;
+  const {showtime, seatsBooked} = props;
 
-  useEffect(() => {
-    console.log(showtime);
-  }, [showtime])
+  const authState = useStoreState(state => state.auth.authState);
 
   const onClickSeat = (seatKey) => {
+    if (seatsBooked.includes(seatKey)) {
+      return;
+    }
+
     const tmpSeatsSelected = [...seatsSelected];
     const indexFound = seatsSelected.indexOf(seatKey);
     if (indexFound !== -1) {
@@ -37,6 +41,29 @@ function TabSeats(props) {
     setSeatSelected(tmpSeatsSelected);
   }
 
+  const onBuyTickets = () => {
+    if (!authState.isLoggedIn) {
+      // TODO: Display modal
+      console.log('Need to Login');
+      return;
+    }
+
+    const data = {
+      showtimeId: showtime.id,
+      tickets: seatsSelected.map(seatKey => {
+        return { discountName: '', name: seatKey };
+      })
+    };
+
+    ticketAPI.buyTicket(data)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
   const renderSeats = () => {
     let divsRow = [];
 
@@ -45,11 +72,18 @@ function TabSeats(props) {
       const letter = (i + 10).toString(36).toUpperCase(); // Convert number to letter
       for (let j = 0; j < showtime.room.totalSeatsPerRow; j++) {
         const seatKey = `${letter}${j}`
-        const className = seatsSelected.includes(seatKey) ? classes['seat-selected'] : classes['seat-available']
+
+        let className = '';
+        if (seatsBooked.includes(seatKey)) {
+          className = `far fa-square ${classes['seat-booked']}`;
+        } else {
+          className = seatsSelected.includes(seatKey) ? `fas fa-square ${classes['seat-selected']}` : `fas fa-square ${classes['seat-available']}`;
+        }
+
         divsSeat.push(
           <i
             key={seatKey}
-            className={`fas fa-square ${className}`}
+            className={className}
             onClick={() => onClickSeat(seatKey)}
           ></i>
         );
@@ -178,8 +212,8 @@ function TabSeats(props) {
               </div>
             </div>
             {/* TODO: Make this btn a component */}
-            <div className={classes['add-to-cart-btn']}>
-              Add To Cart
+            <div className={classes['add-to-cart-btn']} onClick={() => onBuyTickets()}>
+              Buy Ticket
             </div>
           </div>
         </div>

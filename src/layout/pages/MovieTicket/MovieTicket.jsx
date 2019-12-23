@@ -10,6 +10,8 @@ import classes from './MovieTicket.module.scss';
 
 function MovieTicket(props) {
   const [showtime, setShowtime] = useState(null);
+  const [seatsBooked, setSeatsBooked] = useState([]); // ['A5', 'A6']
+  // TODO: Forbid accessing directly by Url
   // var location = useLocation();
 
   // const movie = location.state.movie;
@@ -24,6 +26,7 @@ function MovieTicket(props) {
       .then(response => {
         if (response.data) {
           setShowtime(response.data.showtime);
+          setSeatsBooked(response.data.seats);
         }
       })
       .catch(err => {
@@ -43,7 +46,7 @@ function MovieTicket(props) {
             <div className={classes['cover-opacity']}></div>
           </div>
           <div style={{position: 'relative', zIndex: 2, paddingTop: 200}}>
-            <TabSeats showtime={showtime}/>
+            <TabSeats showtime={showtime} seatsBooked={seatsBooked} />
           </div>
         </>
         :
