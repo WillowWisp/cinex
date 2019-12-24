@@ -226,7 +226,7 @@ const MovieDetail = (props) => {
                           {showtimeByScreentype.screenType.name}
                         </div>
                         <div className={classes['showtimes-container']}>
-                          {showtimeByScreentype.showtimes.map(showtime => (
+                          {helper.sortShowtimesByStartAt(showtimeByScreentype.showtimes).map(showtime => (
                             <div
                               key={showtime.id}
                               className={classes['showtime']}

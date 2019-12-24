@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const helper = {
   getFormattedGenresString(genres) {
     var res = '';
@@ -25,17 +27,29 @@ export const helper = {
     const hourStr = ('0' + (isAM ? hour : hour - 12)).slice(-2); // 2 digits
     const minStr = ('0' + date.getMinutes()).slice(-2);
     res = hourStr + ':' + minStr + ' ' + (isAM ? 'AM' : 'PM');
-    return res
+    // const isoDateString = date.toISOString();
+    // console.log(isoDateString);
+    // const isoHours = isoDateString.slice(11, 13);
+    // const minutes = isoDateString.slice(14, 16);
+    // res = isoHours + ':' + minutes;
+    return res;
   },
-  paginate (array, pageSize, pageNumber) {
+  paginate(array, pageSize, pageNumber) {
     --pageNumber;
     return array.slice(pageNumber * pageSize, (pageNumber + 1) * pageSize);
   },
-  sortMoviesByReleaseDate (array) {
-    if (array.length < 2) {
+  sortMoviesByReleaseDate(array) {
+    if (!array || array.length < 2) {
       return array;
     }
     return array.sort((movie1, movie2) => (new Date(movie1.released) - new Date(movie2.released)) )
+  },
+  sortShowtimesByStartAt(array) {
+    // console.log(array);
+    if (!array || array.length < 2) {
+      return array;
+    }
+    return array.sort((showtime1, showtime2) => (new Date(showtime1.startAt) - new Date(showtime2.startAt)) )
   },
   getYouTubeID(url){
     url = url.split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);

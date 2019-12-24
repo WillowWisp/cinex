@@ -15,7 +15,7 @@ import classes from './Schedule.module.scss';
 const Schedule = () => {
   const [nowOnMovies, setNowOnMovies] = useState(null);
   const [screenTypes, setScreenTypes] = useState(null);
-  const [showtimes, setShowtimes] = useState([]);
+  const [showtimes, setShowtimes] = useState(null);
 
   // const screenTypes = useStoreState(state => state.screenTypes.items);
   // const nowOnMovies = useStoreState(state => state.nowOnMovies.items);
@@ -57,7 +57,7 @@ const Schedule = () => {
       })
   }
 
-  return (nowOnMovies && screenTypes)
+  return (nowOnMovies && screenTypes && showtimes)
     ? (
       <div style={{ backgroundColor: '#0b0f18' }}>
         <div className={classes['fade-in']}>
