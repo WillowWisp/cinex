@@ -86,11 +86,11 @@ const MoviesSchedule = (props) => {
 
   const isAMovieWithAChosenScreenType = (movie, screenTypes) => {
     // const movie = nowOnMovies.find(movie => movie.id === movieId);
-    console.log('--------------------');
-    console.log(screenTypes);
-    console.log(Array.from(movie.screenTypes, (screenType => screenType.id)));
-    console.log(screenTypes.some(screenType => Array.from(movie.screenTypes, (screenType => screenType.id)).includes(screenType)));
-    console.log('--------------------');
+    // console.log('--------------------');
+    // console.log(screenTypes);
+    // console.log(Array.from(movie.screenTypes, (screenType => screenType.id)));
+    // console.log(screenTypes.some(screenType => Array.from(movie.screenTypes, (screenType => screenType.id)).includes(screenType)));
+    // console.log('--------------------');
     return screenTypes.some(screenType => Array.from(movie.screenTypes, (screenType => screenType.id)).includes(screenType));
   }
 
@@ -231,7 +231,7 @@ const MoviesSchedule = (props) => {
                     {showtimeByScreentype.screenType.name}
                   </div>
                   <div className={classes['showtimes-container']}>
-                    {showtimeByScreentype.showtimes.map(showtime => (
+                    {helper.sortShowtimesByStartAt(showtimeByScreentype.showtimes).map(showtime => (
                       <div
                         className={classes['showtime']}
                         onClick={onShowtimeClick.bind(this, movie, showtime)}

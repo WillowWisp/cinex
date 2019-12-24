@@ -137,7 +137,7 @@ function Home(props) {
         {renderTrailerSection()}
       </Section>
 
-      <UnreleasedSection movies={helper.paginate(upcomingMovies, 5, 1)} />
+      <UnreleasedSection movies={helper.paginate(helper.sortMoviesByReleaseDate(upcomingMovies), 5, 1)} />
     </div>
   )
 }
