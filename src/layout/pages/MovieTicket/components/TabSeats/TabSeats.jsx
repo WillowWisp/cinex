@@ -24,6 +24,8 @@ function TabSeats(props) {
   const [lightbox, setLightbox] = useState(false);
   const [isLoadingBuyTicket, setIsLoadingBuyTicket] = useState(false);
 
+  const [messageBuy, setMessageBuy] = useState('');
+
 
   const authState = useStoreState(state => state.auth.authState);
 
@@ -49,15 +51,18 @@ function TabSeats(props) {
   }
 
   const onBuyTickets = () => {
+    setMessageBuy(``);
     if (!authState.isLoggedIn) {
       // TODO: Display modal
       console.log('Need to Login');
-      window.location.href = '/login';
+      setMessageBuy(`You need to login to buy tickets.`);
+      // window.location.href = '/login';
       return;
     }
 
     if (seatsSelected.length <= 0) {
       // TODO: Display modal
+      setMessageBuy(`You haven't chosen any seat.`);
       return;
     }
 
@@ -71,6 +76,7 @@ function TabSeats(props) {
     ticketAPI.buyTicket(data)
       .then(response => {
         console.log(response);
+        setMessageBuy(`Successful. Please check your email.`);
         const newSeatsBookedState = [...seatsBookedState, ...seatsSelected];
         setSeatsBookedState(newSeatsBookedState);
         setSeatSelected([]);
@@ -78,6 +84,7 @@ function TabSeats(props) {
       })
       .catch(err => {
         console.log(err);
+        setMessageBuy(`Something went wrong. Please try again.`);
         setIsLoadingBuyTicket(false);
       })
   }
@@ -229,6 +236,7 @@ function TabSeats(props) {
                 ${seatsSelected.length * showtime.price}
               </div>
             </div>
+            <div style={{marginBottom: 10}}>{messageBuy}</div>
             {/* TODO: Make this btn a component */}
             <div className={classes['add-to-cart-btn']} onClick={() => onBuyTickets()}>
               {
