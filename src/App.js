@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 
 import * as authAPI from './api/authAPI';
-import { StoreProvider, useStoreActions } from 'easy-peasy';
+import { StoreProvider } from 'easy-peasy';
 import { store } from './store';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -31,11 +31,11 @@ function App() {
             // TODO: Find out if this is the right way to dispatch action in App.js
             store.getActions().auth.setLoginToken(tokenStr);
 
-            // Attach Token to request header
-            axios.interceptors.request.use(function (config) {
-              config.headers.Authorization = tokenStr;
-              return config;
-            });
+            // // Attach Token to request header
+            // axios.interceptors.request.use(function (config) {
+            //   config.headers.Authorization = tokenStr;
+            //   return config;
+            // });
           } else {
             store.getActions().auth.removeLoginToken();
           }

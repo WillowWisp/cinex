@@ -4,7 +4,6 @@ import * as movieAPI from '../../../api/movieAPI';
 
 import YouTube from 'react-youtube';
 import { useHistory  } from 'react-router-dom';
-import { useStoreState } from 'easy-peasy';
 import { Spinner } from 'react-bootstrap';
 
 import Section from './components/Section/Section';

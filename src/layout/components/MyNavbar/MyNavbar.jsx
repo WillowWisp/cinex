@@ -31,7 +31,7 @@ function MyNavbar() {
           className={classes['navbar-brand']}
           onClick={onLogoClick}
         >
-          <img src="https://www.freeiconspng.com/uploads/white-strategy-icon-33.png" alt="Cinex" className={classes['navbar-brand-img']} />
+          <img src="https://i.imgur.com/xiNxSJa.png" alt="Cinex" className={classes['navbar-brand-img']} />
           <span>Cinex</span>
         </div>
         <div className={classes['navbar-right']}>

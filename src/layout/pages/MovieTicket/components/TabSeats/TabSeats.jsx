@@ -4,28 +4,35 @@ import { useStoreState } from 'easy-peasy';
 import { helper } from '../../../../../utils/helper';
 import * as ticketAPI from '../../../../../api/ticketAPI';
 
-import { Container } from 'react-bootstrap';
+import { Container, Spinner } from 'react-bootstrap';
 import FsLightbox from 'fslightbox-react';
 
 import classes from './TabSeats.module.scss';
 
-const ROOM_INFO = {
-  totalRows: 10,
-  seatsPerRow: 18,
-}
+// const ROOM_INFO = {
+//   totalRows: 10,
+//   seatsPerRow: 18,
+// }
 
-const SEAT_PRICE = 5;
+// const SEAT_PRICE = 5;
 
 function TabSeats(props) {
-  const [seatsSelected, setSeatSelected] = useState([]);
-  const [lightbox, setLightbox] = useState(false);
-
   const {showtime, seatsBooked} = props;
+
+  const [seatsSelected, setSeatSelected] = useState([]);
+  const [seatsBookedState, setSeatsBookedState] = useState([]);
+  const [lightbox, setLightbox] = useState(false);
+  const [isLoadingBuyTicket, setIsLoadingBuyTicket] = useState(false);
+
 
   const authState = useStoreState(state => state.auth.authState);
 
+  useEffect(() => {
+    setSeatsBookedState(seatsBooked)
+  }, [seatsBooked])
+
   const onClickSeat = (seatKey) => {
-    if (seatsBooked.includes(seatKey)) {
+    if (seatsBookedState.includes(seatKey)) {
       return;
     }
 
@@ -45,6 +52,12 @@ function TabSeats(props) {
     if (!authState.isLoggedIn) {
       // TODO: Display modal
       console.log('Need to Login');
+      window.location.href = '/login';
+      return;
+    }
+
+    if (seatsSelected.length <= 0) {
+      // TODO: Display modal
       return;
     }
 
@@ -54,13 +67,18 @@ function TabSeats(props) {
         return { discountName: '', name: seatKey };
       })
     };
-
+    setIsLoadingBuyTicket(true);
     ticketAPI.buyTicket(data)
       .then(response => {
         console.log(response);
+        const newSeatsBookedState = [...seatsBookedState, ...seatsSelected];
+        setSeatsBookedState(newSeatsBookedState);
+        setSeatSelected([]);
+        setIsLoadingBuyTicket(false);
       })
       .catch(err => {
         console.log(err);
+        setIsLoadingBuyTicket(false);
       })
   }
 
@@ -74,7 +92,7 @@ function TabSeats(props) {
         const seatKey = `${letter}${j}`
 
         let className = '';
-        if (seatsBooked.includes(seatKey)) {
+        if (seatsBookedState.includes(seatKey)) {
           className = `far fa-square ${classes['seat-booked']}`;
         } else {
           className = seatsSelected.includes(seatKey) ? `fas fa-square ${classes['seat-selected']}` : `fas fa-square ${classes['seat-available']}`;
@@ -213,7 +231,12 @@ function TabSeats(props) {
             </div>
             {/* TODO: Make this btn a component */}
             <div className={classes['add-to-cart-btn']} onClick={() => onBuyTickets()}>
-              Buy Ticket
+              {
+                isLoadingBuyTicket ?
+                <Spinner animation="border" />
+                :
+                'Buy Ticket'
+              }
             </div>
           </div>
         </div>

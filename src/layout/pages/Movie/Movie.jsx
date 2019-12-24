@@ -4,8 +4,6 @@ import MovieShowcase from './components/MovieShowcase/MovieShowcase';
 import MovieDetail from './components/MovieDetail/MovieDetail';
 import NowPlayingMovies from './components/NowPlayingMovies/NowPlayingMovies';
 import { Container, Spinner } from 'react-bootstrap';
-import { useParams } from "react-router-dom";
-import { useStoreState } from 'easy-peasy';
 
 // import mockMovie from './mock-movie';
 // import mockMovies from '../../../mock-data';

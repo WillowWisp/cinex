@@ -4,7 +4,6 @@ import * as showtimeAPI from '../../../../../api/showtimeAPI';
 import * as screenTypeAPI from '../../../../../api/screenTypeAPI';
 import { helper } from '../../../../../utils/helper';
 import { useHistory } from 'react-router-dom';
-import { useStoreState } from 'easy-peasy';
 import moment from 'moment';
 
 import { Button, Modal } from 'react-bootstrap';

@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import * as authAPI from '../../../api/authAPI';
+
+import { Spinner } from 'react-bootstrap';
 
 import classes from './Login.module.scss';
 import { useStoreActions } from 'easy-peasy';
@@ -11,21 +13,25 @@ function Login(props) {
   const [password, setPassword] = useState('');
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const setLoginToken = useStoreActions(actions => actions.auth.setLoginToken);
 
   const onLogin = (event) => {
     event.preventDefault();
+    setIsLoading(true);
     authAPI.login(username, password)
       .then((response) => {
-        console.log(response);
         setLoginToken(response.data.token);
         setIsLoggedIn(true);
+        setIsLoading(false);
+        setErrorMessage('');
       })
       .catch(err => {
-        console.log(err);
+        setIsLoading(false);
+        setErrorMessage('Wrong username or password. Please try again.');
       })
-    // console.log({ username, password });
   }
 
   if (isLoggedIn) {
@@ -39,6 +45,7 @@ function Login(props) {
           <div className={classes['card-header-text']}>Sign In</div>
         </div>
         <div className="card-body">
+          <div style={{color: 'red', marginBottom: 5}}>{errorMessage}</div>
           <form onSubmit={(event) => onLogin(event)}>
             <div className="input-group form-group">
               <div className="input-group-prepend">
@@ -71,7 +78,14 @@ function Login(props) {
                 <label><input type="checkbox" /> Remember Me</label>
               </div>
               <div className="form-group">
-                <input type="submit" value="Login" className={classes['login-btn']} />
+                <button type="submit" className={classes['login-btn']} disabled={isLoading}>
+                  {
+                    isLoading ?
+                    <Spinner animation="border" size="md" />
+                    :
+                    'Login'
+                  }
+                </button>
               </div>
             </div>
           </form>
@@ -81,7 +95,7 @@ function Login(props) {
             Don't have an account?<a href="/sign-up" className="ml-2 font-weight-bold">Sign Up</a>
           </div>
           <div className="d-flex justify-content-center">
-            <a href="#" className="font-weight-bold">Forgot your password?</a>
+            <a href="/" className="font-weight-bold">Forgot your password?</a>
           </div>
         </div>
       </div>

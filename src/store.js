@@ -1,6 +1,7 @@
 import { createStore, action } from 'easy-peasy';
+import axios from 'axios';
 import { mockMovies, mockUpcomingMovies, mockNowOnMovies, 
-  mockScreenTypes, mockRates, mockShowtimes } from './mock-data';
+  mockScreenTypes, mockShowtimes } from './mock-data';
 
 export const store = createStore({
   // todos: {
@@ -19,6 +20,12 @@ export const store = createStore({
       state.authState.tokenStr = payload;
       state.authState.isLoggedIn = true;
       localStorage.setItem('token', payload);
+      
+      // Attach Token to request header
+      axios.interceptors.request.use(function (config) {
+        config.headers.Authorization = payload;
+        return config;
+      });
     }),
     removeLoginToken: action((state, payload) => {
       // Logout

@@ -27,6 +27,7 @@ function MovieTicket(props) {
         if (response.data) {
           setShowtime(response.data.showtime);
           setSeatsBooked(response.data.seats);
+          console.log(response.data);
         }
       })
       .catch(err => {

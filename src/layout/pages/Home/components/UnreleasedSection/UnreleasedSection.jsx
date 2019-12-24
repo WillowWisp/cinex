@@ -1,6 +1,5 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
 import { Spinner } from 'react-bootstrap';
 
 import classes from './UnreleasedSection.module.scss';
