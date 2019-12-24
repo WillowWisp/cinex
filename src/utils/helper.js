@@ -31,6 +31,12 @@ export const helper = {
     --pageNumber;
     return array.slice(pageNumber * pageSize, (pageNumber + 1) * pageSize);
   },
+  sortMoviesByReleaseDate (array) {
+    if (array.length < 2) {
+      return array;
+    }
+    return array.sort((movie1, movie2) => (new Date(movie1.released) - new Date(movie2.released)) )
+  },
   getYouTubeID(url){
     url = url.split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
     return (url[2] !== undefined) ? url[2].split(/[^0-9a-z_\-]/i)[0] : url[0];
