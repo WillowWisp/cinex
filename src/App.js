@@ -11,6 +11,8 @@ import ScrollIntoView from './utils/ScrollIntoView';
 
 import './styles/global.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-aspect-ratio/aspect-ratio.css';
+import 'react-image-lightbox/style.css';
 
 axios.defaults.baseURL = 'https://cinex.herokuapp.com';
 

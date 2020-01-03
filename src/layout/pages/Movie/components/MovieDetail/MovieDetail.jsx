@@ -7,7 +7,10 @@ import { useHistory } from 'react-router-dom';
 import moment from 'moment';
 
 import { Button, Modal } from 'react-bootstrap';
-import { IoMdAddCircleOutline } from "react-icons/io";
+import { IoMdAddCircleOutline, IoIosImages } from "react-icons/io";
+import { MdPhotoLibrary } from 'react-icons/md';
+import AspectRatio from 'react-aspect-ratio';
+import Lightbox from 'react-image-lightbox';
 
 import './MovieDetail.css';
 import classes from './MovieDetail.module.scss';
@@ -18,9 +21,11 @@ const MovieDetail = (props) => {
   const [chosenDate, setChosenDate] = useState(0)
   // TODO: Make modal a seperated component
   const [showModal, setShowModal] = useState(false);
+  const [lightboxState, setLightboxState] = useState({ photoIndex: 0, isOpen: false });
 
   var history = useHistory();
   const { movie } = props;
+  const galleryImages = movie.wallpapers ? [ ...movie.wallpapers, movie.poster ] : [ movie.poster ];
 
   // const showtimes = useStoreState(state => state.showtimes.items);
   // const screenTypes = useStoreState(state => state.screenTypes.items);
@@ -32,6 +37,7 @@ const MovieDetail = (props) => {
 
     const today = new Date();
     setChosenDate(today.getDate());
+
   }, []);
 
   const getScreenTypes = () => {
@@ -103,6 +109,27 @@ const MovieDetail = (props) => {
   
   return (
     <div className={classes['container']}>
+      {lightboxState.isOpen && (
+        <Lightbox
+          style={{ zIndex: 9999999 }}
+          mainSrc={galleryImages[lightboxState.photoIndex]}
+          nextSrc={galleryImages[(lightboxState.photoIndex + 1) % galleryImages.length]}
+          prevSrc={galleryImages[(lightboxState.photoIndex + galleryImages.length - 1) % galleryImages.length]}
+          onCloseRequest={() => setLightboxState({ ...lightboxState, isOpen: false })}
+          onMovePrevRequest={() =>
+            setLightboxState({
+              ...lightboxState,
+              photoIndex: (lightboxState.photoIndex + galleryImages.length - 1) % galleryImages.length,
+            })
+          }
+          onMoveNextRequest={() =>
+            setLightboxState({
+              ...lightboxState,
+              photoIndex: (lightboxState.photoIndex + 1) % galleryImages.length,
+            })
+          }
+        />
+      )}
       {
         movie ?
         <>
@@ -171,6 +198,24 @@ const MovieDetail = (props) => {
                     className={classes['sub-text'] + " " + classes['see-more']}
                     onClick={() => { window.open("https://www.imdb.com/", "_blank") }}
                   ><IoMdAddCircleOutline size={24} className={classes['icon']}/>See more</div>
+                </div>
+                <div className={classes['gallery']}>
+                  <div className={classes['section-name-text']}>Gallery</div>
+                  <AspectRatio
+                    ratio='1.61803398875'
+                    style={{
+                      maxWidth: '200px',
+                      backgroundImage: `url(${galleryImages[0]})`,
+                      backgroundSize: 'cover'
+                    }}
+                  >
+                    <div
+                      className={classes['gallery-overlay-box']}
+                      onClick={() => setLightboxState({ ...lightboxState, isOpen: true })}
+                    >
+                      <MdPhotoLibrary className={classes['icon']}/>
+                    </div>
+                  </AspectRatio>
                 </div>
               </div>
               <hr className={classes["line"]}/>
