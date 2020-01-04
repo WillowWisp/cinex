@@ -1,4 +1,4 @@
-import moment from 'moment';
+// import moment from 'moment';
 
 export const helper = {
   getFormattedGenresString(genres) {
@@ -53,6 +53,7 @@ export const helper = {
   },
   getYouTubeID(url){
     url = url.split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+    // eslint-disable-next-line no-useless-escape
     return (url[2] !== undefined) ? url[2].split(/[^0-9a-z_\-]/i)[0] : url[0];
   },
   getFormattedDate(date) {

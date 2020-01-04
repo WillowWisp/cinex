@@ -19,6 +19,7 @@ function MovieTicket(props) {
 
   useEffect(() => {
     getShowtimeDetail(props.match.params.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const getShowtimeDetail = (id) => {

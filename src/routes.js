@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 
 import Home from './layout/pages/Home/Home';
 import MovieTicket from './layout/pages/MovieTicket/MovieTicket';

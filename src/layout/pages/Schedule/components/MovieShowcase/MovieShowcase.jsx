@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Container } from 'react-bootstrap';
+import React, {  } from 'react';
+// import { Container } from 'react-bootstrap';
 
 import classes from './MovieShowcase.module.scss';
 

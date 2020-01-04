@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom';
 import moment from 'moment';
 
 import { Button, Modal } from 'react-bootstrap';
-import { IoMdAddCircleOutline, IoIosImages } from "react-icons/io";
+import { IoMdAddCircleOutline } from "react-icons/io";
 import { MdPhotoLibrary } from 'react-icons/md';
 import AspectRatio from 'react-aspect-ratio';
 import Lightbox from 'react-image-lightbox';
@@ -37,7 +37,7 @@ const MovieDetail = (props) => {
 
     const today = new Date();
     setChosenDate(today.getDate());
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getScreenTypes = () => {
@@ -81,6 +81,7 @@ const MovieDetail = (props) => {
     for (var showtime of showtimes) {
       const showDate = new Date(showtime.startAt);
       if (showtime.movie.id === movie.id && showDate.getDate() === date) {
+        // eslint-disable-next-line no-loop-func
         const screenTypeIndex = showtimeByScreenType.findIndex(st => st.screenType.name === showtime.screenType.name);
         showtimeByScreenType[screenTypeIndex].showtimes.push(showtime);
       }

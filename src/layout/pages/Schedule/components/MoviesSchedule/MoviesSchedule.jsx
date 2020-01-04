@@ -25,10 +25,12 @@ const MoviesSchedule = (props) => {
       Array.from(nowOnMovies, (movie) => ({ movieId: movie.id, chosenDate: today.getDate() }))
     );
     getShowtimesByMovieIdAndDate('movie_00', 21);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     setFilteredMovies(nowOnMovies.filter(movie => isAMovieWithAChosenScreenType(movie, chosenScreenTypes)));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chosenScreenTypes]);
 
   const getDatesToDisplay = () => {
@@ -51,6 +53,7 @@ const MoviesSchedule = (props) => {
     for (var showtime of showtimes) {
       const showDate = new Date(showtime.startAt);
       if (showtime.movie.id === movieId && showDate.getDate() === date) {
+        // eslint-disable-next-line no-loop-func
         const screenTypeIndex = showtimeByScreenType.findIndex(st => st.screenType.name === showtime.screenType.name);
         showtimeByScreenType[screenTypeIndex].showtimes.push(showtime);
       }

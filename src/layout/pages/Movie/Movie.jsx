@@ -26,6 +26,7 @@ const Movie = (props) => {
   useEffect(() => {
     getMovieDetail(props.match.params.id);
     getNowOnMovies();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
   const getMovieDetail = (id) => {

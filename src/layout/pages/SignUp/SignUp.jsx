@@ -133,7 +133,7 @@ function SignUp(props) {
             <a href="/login" className="font-weight-bold">Go to login.</a>
           </div>
           <div className="d-flex justify-content-center">
-            <a href="#" className="font-weight-bold">Forgot your password?</a>
+            <a href="/" className="font-weight-bold">Forgot your password?</a> {/** TODO: API */}
           </div>
         </div>
       </div>
