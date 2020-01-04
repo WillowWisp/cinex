@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react';
 import { Container } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
+import CustomSelect from '../../../../../components/CustomSelect/CustomSelect';
+
 import classes from './MoviesSchedule.module.scss';
 
 import {helper} from '../../../../../utils/helper';
@@ -144,6 +146,7 @@ const MoviesSchedule = (props) => {
   const renderScreenTypeButton = (screenType) => {
     return (
       <div 
+        key={screenType.id}
         className={ 
           isChosenScreenType(screenType)
           ? classes['screen-type-button-active'] 
@@ -199,7 +202,7 @@ const MoviesSchedule = (props) => {
             </div>
             <div className={classes['display-dates']}>
               {getDatesToDisplay().map(date => (
-                <div className={classes['date-container']}>
+                <div key={date.toISOString()} className={classes['date-container']}>
                   <div 
                     className={
                       classes['date-clickable'] +
@@ -263,8 +266,24 @@ const MoviesSchedule = (props) => {
 
   return (
     <Container className={classes['container']}>
-
       <div className={classes['header']}>
+        <div className={classes['big-text']}>
+          Theater
+        </div>
+        <div className={classes['fading-line']}></div>
+        <div className="row">
+          <div className="col-5">
+            <CustomSelect placeholder="Select Theater" selectWidth="100%" />
+            <div>
+              <div style={{fontSize: 30, textTransform: 'uppercase', fontWeight: 'bold'}}>Cinex New York City</div>
+              <div style={{fontSize: 22}}>Address: 136 Metropolitan Ave, Brooklyn, NY 11249-3952</div>
+              <div style={{fontSize: 22}}>Hotline: 028 7300 9999</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className={classes['header']} style={{marginTop: 100}}>
         <div className={classes['big-text']}>
           Schedule
         </div>
