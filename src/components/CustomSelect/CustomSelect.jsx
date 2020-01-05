@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import classes from './CustomSelect.module.scss';
 
@@ -7,25 +7,14 @@ function CustomSelect(props) {
   // selectWidth: string
   // selectHeight: string
   // placeholder: string
+  // options: array<{label: string, value: string}>
+  // value: {value: string}
+  // onChange: function(newValue: {label: string, value: string})
+
+  // TODO: Loading Overlay
 
   // const [selectedOption, setSelectedOption] = useState(null);
-  const [options, setOptions] = useState([
-    {
-      label: 'Cinex NYC',
-      value: 'abcsdsdasdasd',
-      isClosed: true,
-    },
-    {
-      label: 'Hai',
-      value: 'Hai',
-      isClosed: true,
-    },
-    {
-      label: 'Ba',
-      value: 'Ba',
-      isClosed: true,
-    },
-  ]);
+  const [optionsState, setOptionsState] = useState([]); // array<{label: string, value: string}>
   const [inputFieldValue, setInputFieldValue] = useState('');
   const [inputFieldPlaceholder, setInputFieldPlaceholder] = useState(props.placeholder);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -33,18 +22,37 @@ function CustomSelect(props) {
   const DEFAULT_SELECT_WIDTH = '300px';
   const DEFAULT_SELECT_HEIGHT = '55px';
 
+  useEffect(() => {
+    const newOptionsState = props.options.map(option => {
+      return {...option, isClosed: true}
+    });
+    setOptionsState(newOptionsState);
+  }, [props.options]);
+
+  useEffect(() => {
+    // set selected option = props.value and emit onChange
+    if (props.value) {
+      const foundOption = optionsState.find(option => option.value === props.value);
+      if (foundOption) {
+        setInputFieldValue(foundOption.label);
+        props.onChange({ value: foundOption.value, label: foundOption.label });
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.value]);
+
   const onInputFieldFocus = () => {
     setInputFieldPlaceholder('Type to filter');
     setIsDropdownOpen(true);
 
-    // const newOptions = options.map(option => {
+    // const newOptionsState = optionsState.map(option => {
     //   return {
     //     ...option,
     //     isClosed: false,
     //   }
     // });
-    // setOptions(newOptions);
-    toggleAllOptions(true);
+    // setOptionsState(newOptionsState);
+    toggleAllOptionsState(true);
   }
 
   const onInputFieldBlur = () => {
@@ -60,38 +68,40 @@ function CustomSelect(props) {
     let inputValue = event.target.value.toLowerCase();
     // let valueSubstring;
 
-    const labelArr = options.map(option => option.label);
+    const labelArr = optionsState.map(option => option.label);
 
     if (inputValue.length > 0) {
       for (let j = 0; j < labelArr.length; j++) {
         if (!(inputValue.substring(0, inputValue.length) === labelArr[j].substring(0, inputValue.length).toLowerCase())) {
-          options[j].isClosed = true;
+          optionsState[j].isClosed = true;
         } else {
-          options[j].isClosed = false;
+          optionsState[j].isClosed = false;
         }
       }
     } else {
-      for (let i = 0; i < options.length; i++) {
-        options[i].isClosed = false;
+      for (let i = 0; i < optionsState.length; i++) {
+        optionsState[i].isClosed = false;
       }
     }
     
-    setOptions(options);
+    setOptionsState(optionsState);
   }
 
-  const toggleAllOptions = (isOpen) => {
-    const newOptions = options.map((option) => {
+  const toggleAllOptionsState = (isOpen) => {
+    const newOptionsState = optionsState.map((option) => {
       return {
         ...option,
         isClosed: !isOpen,
       }
     });
-    setOptions(newOptions);
+    setOptionsState(newOptionsState);
   }
 
   const onDropdownItemClick = (option) => {
     setInputFieldValue(option.label);
-    toggleAllOptions(false);
+    toggleAllOptionsState(false);
+
+    props.onChange({ value: option.value, label: option.label });
   }
 
   return (
@@ -122,7 +132,7 @@ function CustomSelect(props) {
           marginTop: props.selectHeight ? props.selectHeight : DEFAULT_SELECT_HEIGHT,
         }}
       >
-        {options.map(option => {
+        {optionsState.map(option => {
           return (
             <li
               key={option.value}
