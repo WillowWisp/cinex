@@ -2,8 +2,6 @@ import React, {useState, useEffect} from 'react';
 import { Container } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
-import CustomSelect from '../../../../../components/CustomSelect/CustomSelect';
-
 import classes from './MoviesSchedule.module.scss';
 
 import {helper} from '../../../../../utils/helper';
@@ -17,6 +15,12 @@ const MoviesSchedule = (props) => {
   const [filteredMovies, setFilteredMovies] = useState(nowOnMovies);
   var history = useHistory();
 
+  useEffect(() => {
+    console.log(nowOnMovies);
+    if (nowOnMovies.length > 0) {
+      setFilteredMovies(nowOnMovies);
+    }
+  }, [nowOnMovies])
 
   useEffect(() => {
     setChosenScreenTypes(
@@ -86,7 +90,11 @@ const MoviesSchedule = (props) => {
   const isChosenDateOfMovie = (movieId, date) => {
     const movieIndex = moviesChosenDate.findIndex(chosen => chosen.movieId === movieId);
     // console.log(date === moviesChosenDate[movieIndex].chosenDate);
-    return date === moviesChosenDate[movieIndex].chosenDate;
+    if (movieIndex !== -1) {
+      return date === moviesChosenDate[movieIndex].chosenDate;
+    }
+
+    return false;
   }
 
   const isAMovieWithAChosenScreenType = (movie, screenTypes) => {
@@ -266,22 +274,23 @@ const MoviesSchedule = (props) => {
 
   return (
     <Container className={classes['container']}>
-      <div className={classes['header']}>
+      {/* <div className={classes['header']}>
         <div className={classes['big-text']}>
           Theater
         </div>
         <div className={classes['fading-line']}></div>
         <div className="row">
           <div className="col-5">
-            <CustomSelect placeholder="Select Theater" selectWidth="100%" />
-            <div>
+            <div className={classes['label-text']} style={{marginBottom: 10}}>Choose a Theater:</div>
+            <CustomSelect placeholder="Select Theater" selectWidth="100%" options={[{label: 'Mot', value: 'mot'}]} />
+            <div className={classes['theater-info-card']}>
               <div style={{fontSize: 30, textTransform: 'uppercase', fontWeight: 'bold'}}>Cinex New York City</div>
               <div style={{fontSize: 22}}>Address: 136 Metropolitan Ave, Brooklyn, NY 11249-3952</div>
               <div style={{fontSize: 22}}>Hotline: 028 7300 9999</div>
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div className={classes['header']} style={{marginTop: 100}}>
         <div className={classes['big-text']}>
