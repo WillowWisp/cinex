@@ -3,8 +3,9 @@ import React, { useState, useEffect } from 'react';
 import { useStoreState } from 'easy-peasy';
 import { helper } from '../../../../../utils/helper';
 import * as ticketAPI from '../../../../../api/ticketAPI';
+import * as discountAPI from '../../../../../api/discountAPI';
 
-import { Container, Spinner } from 'react-bootstrap';
+import { Container, Spinner, InputGroup, FormControl, Button, Form } from 'react-bootstrap';
 import FsLightbox from 'fslightbox-react';
 
 import classes from './TabSeats.module.scss';
@@ -23,6 +24,12 @@ function TabSeats(props) {
   const [seatsBookedState, setSeatsBookedState] = useState([]);
   const [lightbox, setLightbox] = useState(false);
   const [isLoadingBuyTicket, setIsLoadingBuyTicket] = useState(false);
+  const [isUsingCoupon, setIsUsingCoupon] = useState(false);
+  const [isCouponFeedbackShowing, setCouponFeedbackShowing] = useState(false);
+  const [couponCode, setCouponCode] = useState('');
+  const [couponFeedbackText, setCouponFeedbackText] = useState('Invalid');
+  const [isCouponInEffect, setIsCouponInEffect] = useState(false);
+  const [couponDiscountRate, setCouponDiscountRate] = useState(0);
 
   const [messageBuy, setMessageBuy] = useState('');
 
@@ -32,6 +39,47 @@ function TabSeats(props) {
   useEffect(() => {
     setSeatsBookedState(seatsBooked)
   }, [seatsBooked])
+
+  const onUsingCouponChanged = () => {
+    // console.log(e.target.value);
+    setIsUsingCoupon(!isUsingCoupon);
+  }
+
+  const onCouponCodeChange = (e) => {
+    if (isCouponFeedbackShowing) {
+      setCouponFeedbackShowing(false);
+    }
+    setCouponCode((e.target.value).toUpperCase());
+    console.log(e.target.value);
+  }
+
+  const onCheckCouponClick = () => {
+    if (isCouponInEffect) {
+      setIsCouponInEffect(false);
+    }
+    if (couponCode.length < 4 || couponCode.length > 6) {
+      setCouponFeedbackShowing(true);
+      setCouponFeedbackText('Must be from 4-6 characters')
+      return;
+    }
+    discountAPI.checkDiscountIsValid(couponCode)
+    .then((res) => {
+      console.log(res.data);
+      if (!res.data) {
+        setCouponFeedbackShowing(true);
+        setCouponFeedbackText('Invalid or inactive Coupon');
+      }
+      else {
+        setCouponFeedbackShowing(true);
+        setCouponFeedbackText('Nice! What a bargain');
+        setIsCouponInEffect(true);
+        setCouponDiscountRate(res.data.discount / 100.0);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
 
   const onClickSeat = (seatKey) => {
     if (seatsBookedState.includes(seatKey)) {
@@ -87,6 +135,14 @@ function TabSeats(props) {
         setMessageBuy(`Something went wrong. Please try again.`);
         setIsLoadingBuyTicket(false);
       })
+  }
+
+  const getTotalPrice = () => {
+    var total = seatsSelected.length * showtime.price;
+    if (isCouponInEffect && isUsingCoupon) {
+      total *= (1 - couponDiscountRate);
+    }
+    return Math.round(total * 100) / 100;
   }
 
   const renderSeats = () => {
@@ -216,24 +272,36 @@ function TabSeats(props) {
           </div>
 
           <div className={classes['seats-review']}>
-            <div className={classes['seats-review-title']}>
-              Your Seats
-            </div>
-            <div className={classes['seats-review-section']}>
-              <div className={classes['seats-review-section-title']}>
-                {seatsSelected.length > 0 ? seatsSelected.join(', ') : 'None'}
+            <div className={classes['seats-review-info']}>
+              <div className={classes['seats-review-title']}>
+                Your Seats
               </div>
-              <div className={classes['seats-review-section-quantity']}>
-                {seatsSelected.length}
+              <div className={classes['seats-review-section']}>
+                <div className={classes['seats-review-section-title']}>
+                  {seatsSelected.length > 0 ? seatsSelected.join(', ') : 'None'}
+                </div>
+                <div className={classes['seats-review-section-quantity']}>
+                  {seatsSelected.length}
+                </div>
+                <div className={classes['seats-review-section-price']}>${showtime.price}</div>
               </div>
-              <div className={classes['seats-review-section-price']}>${showtime.price}</div>
-            </div>
-            <div className={classes['seats-review-total']}>
-              <div className={classes['seats-review-total-title']}>
-                Total
-              </div>
-              <div className={classes['seats-review-total-price']}>
-                ${seatsSelected.length * showtime.price}
+              <div className={classes['seats-review-total']}>
+                <div className={classes['seats-review-total-title']}>
+                  Total
+                  {
+                    isCouponInEffect && isUsingCoupon
+                    ? <span
+                        style={{
+                          color: 'white',
+                          fontSize: '16px'
+                        }}
+                      >(Using Coupon)</span>
+                    : null
+                  }
+                </div>
+                <div className={classes['seats-review-total-price']}>
+                  ${ getTotalPrice() }
+                </div>
               </div>
             </div>
             <div style={{marginBottom: 10}}>{messageBuy}</div>
@@ -244,6 +312,56 @@ function TabSeats(props) {
                 <Spinner animation="border" />
                 :
                 'Buy Ticket'
+              }
+            </div>
+            <div className={classes['coupon-section']}>
+              <div className={classes['title']}>
+                {isUsingCoupon ? 'Input Coupon Code' : 'Use coupon'}
+                <span style={{
+                  display: 'flex',
+                }}>
+                  <Form.Check
+                    custom
+                    label=''
+                    style={{
+                      display: 'flex',
+                    }}
+                    checked={isUsingCoupon}
+                    type="checkbox"
+                    id='use-coupon-cb'
+                    onChange={onUsingCouponChanged}
+                  />
+                </span>
+              </div>
+              {
+                isUsingCoupon
+                ? <div>
+                  <InputGroup
+                    className={"mb-3 " + classes['input']}
+                  >
+                    <FormControl
+                      placeholder="Code"
+                      aria-label="coupon"
+                      aria-describedby="basic-addon2"
+                      value={couponCode}
+                      onChange={onCouponCodeChange}
+                    />
+                    <InputGroup.Append>
+                      <Button
+                        onClick={onCheckCouponClick}
+                        variant="primary"
+                      >Kiểm tra</Button>
+                    </InputGroup.Append>
+                  </InputGroup>
+                  <div
+                    style={{
+                      visibility: isCouponFeedbackShowing ? 'visible' : 'hidden',
+                      color: isCouponInEffect ? '#28a745' : '#dc3545'
+                    }}
+                    className={classes['feedback-container']}
+                  >{couponFeedbackText}</div>
+                </div>
+                : null
               }
             </div>
           </div>

@@ -145,8 +145,47 @@
 }
 
 .seats-review {
-  margin-top: 200px;
+  // margin-top: 140px;
   font-size: 24px;
+
+  .coupon-section {
+    margin-top: 20px;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 20px;
+
+    .feedback-container {
+      width: 100%;
+      font-size: 80%;
+      // color: #dc3545;
+      font-size: 16px;
+    }
+
+    .success-feedback {
+      color: #28a745;
+    }
+    .error-feedback {
+      color: #dc3545;
+    }
+
+    .title {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .input {
+      font-weight: bold;
+      text-transform: uppercase;
+      padding: 10px 0;
+      margin-bottom: 0 !important;
+    }
+  }
+
+  .seats-review-info {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 20px 20px 0;
+  }
 
   .seats-review-title {
     color: #aaa;
