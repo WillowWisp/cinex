@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
+import * as clusterAPI from '../../../../../api/clusterAPI';
 import * as showtimeAPI from '../../../../../api/showtimeAPI';
 import * as screenTypeAPI from '../../../../../api/screenTypeAPI';
 import { helper } from '../../../../../utils/helper';
 import { useHistory } from 'react-router-dom';
 import moment from 'moment';
 
-import { Button, Modal } from 'react-bootstrap';
+import { Button, Modal, Spinner } from 'react-bootstrap';
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { MdPhotoLibrary } from 'react-icons/md';
 import AspectRatio from 'react-aspect-ratio';
@@ -14,9 +15,12 @@ import Lightbox from 'react-image-lightbox';
 
 import './MovieDetail.css';
 import classes from './MovieDetail.module.scss';
+import TheaterSelectSection from '../../../Schedule/components/TheaterSelectSection/TheaterSelectSection';
 
 const MovieDetail = (props) => {
+  const [clusters, setClusters] = useState([]);
   const [screenTypes, setScreenTypes] = useState([]);
+  const [isLoadingShowtimes, setIsLoadingShowtimes] = useState(false);
   const [showtimes, setShowtimes] = useState([]);
   const [chosenDate, setChosenDate] = useState(0)
   // TODO: Make modal a seperated component
@@ -32,13 +36,25 @@ const MovieDetail = (props) => {
 
   useEffect(() => {
     console.log(movie);
+    getClusters();
     getScreenTypes();
-    getShowtimesByMovie(movie.id);
+    // getShowtimesByMovieAndCluster(movie.id);
 
     const today = new Date();
     setChosenDate(today.getDate());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const getClusters = () => {
+    clusterAPI.getAllClusters()
+      .then(response => {
+        console.log(response);
+        setClusters(response.data);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
 
   const getScreenTypes = () => {
     screenTypeAPI.getAllScreenTypes()
@@ -51,14 +67,17 @@ const MovieDetail = (props) => {
       });
   }
 
-  const getShowtimesByMovie = (movieId) => {
-    showtimeAPI.getShowtimesByMovie(movieId)
+  const getShowtimesByMovieAndCluster = (movieId, clusterId) => {
+    setIsLoadingShowtimes(true);
+    showtimeAPI.getShowtimesByMovieAndCluster(movieId, clusterId)
       .then(response => {
         console.log(response);
         setShowtimes(response.data);
+        setIsLoadingShowtimes(false);
       })
       .catch(err => {
         console.log(err);
+        setIsLoadingShowtimes(false);
       });
   }
 
@@ -106,6 +125,44 @@ const MovieDetail = (props) => {
         showtime: showtime
       }
     );
+  }
+
+  const renderShowtimesByDate = () => {
+    if (isLoadingShowtimes === true) {
+      return (
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1, height: 600 }}>
+          <Spinner animation="grow" variant="light" style={{ width: '2.5rem', height: '2.5rem' }}/>
+        </div>
+      );
+    }
+
+    if (getMovieShowtimeByDate(chosenDate).length <= 0) {
+      return (
+        <div className={classes['no-showtime']}>
+          No Showtime on the chosen Date
+        </div>
+      );
+    }
+
+    return getMovieShowtimeByDate(chosenDate)
+      .map((showtimeByScreentype, index) => (
+        <div key={`showtimeByScreentype${index}`} className={classes['show-time-by-screen-type']}>
+          <div className={classes['screen-type-container']}>
+            {showtimeByScreentype.screenType.name}
+          </div>
+          <div className={classes['showtimes-container']}>
+            {helper.sortShowtimesByStartAt(showtimeByScreentype.showtimes).map(showtime => (
+              <div
+                key={showtime.id}
+                className={classes['showtime']}
+                onClick={onShowtimeClick.bind(this, showtime)}
+              >
+                {moment(showtime.startAt).format('h:mm A z')}
+              </div>
+            ))}
+          </div>
+        </div>
+      ));
   }
   
   return (
@@ -240,6 +297,14 @@ const MovieDetail = (props) => {
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
+              <TheaterSelectSection
+                clusters={clusters}
+                onClusterChange={(clusterId) => {
+                  console.log(clusterId);
+                  getShowtimesByMovieAndCluster(movie.id, clusterId);
+                }}
+              />
+
               <div className={classes['display-dates']}>
                     {getDatesToDisplay().map((date, index) => (
                       <div key={`date${index}`} className={classes['date-container']}>
@@ -266,7 +331,7 @@ const MovieDetail = (props) => {
                     ))}
                   </div>
                   <div className={classes['screen-type-available']}>
-                    {getMovieShowtimeByDate(chosenDate).map((showtimeByScreentype, index) => (
+                    {/* {getMovieShowtimeByDate(chosenDate).map((showtimeByScreentype, index) => (
                       <div key={`showtimeByScreentype${index}`} className={classes['show-time-by-screen-type']}>
                         <div className={classes['screen-type-container']}>
                           {showtimeByScreentype.screenType.name}
@@ -291,7 +356,9 @@ const MovieDetail = (props) => {
                         </div>
                       )
                       : null
-                    }
+                    } */}
+
+                    {renderShowtimesByDate()}
                   </div>
             </Modal.Body>
           </Modal>
