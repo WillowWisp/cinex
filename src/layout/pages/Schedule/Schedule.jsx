@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Spinner } from 'react-bootstrap';
+import { Spinner, Container } from 'react-bootstrap';
 
 import * as clusterAPI from '../../../api/clusterAPI';
 import * as movieAPI from '../../../api/movieAPI';
@@ -95,13 +95,21 @@ const Schedule = () => {
       <div style={{ backgroundColor: '#0b0f18' }}>
         <div className={classes['fade-in']}>
           <MovieShowcase nowOnMovies={nowOnMovies} />
-          <TheaterSelectSection
-            clusters={clusters}
-            onClusterChange={(clusterId) => {
-              console.log(clusterId);
-              getShowtimesByClusterId(clusterId);
-            }}
-          />
+          <Container style={{ marginTop: -400 }}>
+            <div className={classes['big-text']}>
+              Theater
+            </div>
+            <div className={classes['fading-line']}></div>
+            <div style={{ width: 800 }}>
+              <TheaterSelectSection
+                clusters={clusters}
+                onClusterChange={(clusterId) => {
+                  console.log(clusterId);
+                  getShowtimesByClusterId(clusterId);
+                }}
+              />
+            </div>
+          </Container>
           {
             // nowOnMovies.length > 0 && screenTypes.length > 0 && showtimes ?
             isLoadingNowOnMovies !== true && isLoadingShowtime !== true ?
