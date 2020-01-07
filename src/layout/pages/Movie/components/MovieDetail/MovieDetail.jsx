@@ -172,7 +172,7 @@ const MovieDetail = (props) => {
             </div>
               <hr className={classes["line"]}/>
               <div className={classes['rating-length-genres']}>
-                {movie.rated.name + " | " + movie.runtime + " min | " + helper.getFormattedGenresString(movie.genres)}
+                {(movie.rated ? movie.rated.name : 'Not Rated') + " | " + movie.runtime + " min | " + helper.getFormattedGenresString(movie.genres)}
               </div>
               <hr className={classes["line"]}/>
               <div className={classes['details-and-cast']}>
